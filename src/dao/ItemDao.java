@@ -1,9 +1,7 @@
 package dao;
 
 import java.sql.Connection;
-
 import main.Controller;
-
 public class ItemDao {
 	
 	private Controller ctrl;

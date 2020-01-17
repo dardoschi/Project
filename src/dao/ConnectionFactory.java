@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.*;
-
 import main.Controller;
 
 //get connection restituisce un oggetto Connection		   come usare:Connection connection = ConnectionFactory.getConnection();
@@ -11,6 +10,7 @@ public class ConnectionFactory {
 	public static final String url = "jdbc:postgresql://localhost/ProjectDB";
     public static final String username = "postgres";
     public static final String password = "password";
+    
     
     //costruttore con controller
     public ConnectionFactory(Controller c) {
@@ -29,14 +29,10 @@ public class ConnectionFactory {
 			Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url,username, password);
-			System.out.println("Connessione effettuata");
 			}
 		catch(SQLException e2) {
 			System.err.println("Errore di connessione");
 		}
 		return conn;
       }
-    
-    
-
 }
