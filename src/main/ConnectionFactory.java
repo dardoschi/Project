@@ -6,7 +6,7 @@ import java.sql.*;
 public class ConnectionFactory {
 	
 	Controller ctrl;
-	public static final String url = "jdbc:postgresql://localhost/ProjectDB";
+	public static final String url = "jdbc:postgresql://localhost/Project";
     public static final String username = "postgres";
     public static final String password = "password";
     
