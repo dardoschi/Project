@@ -11,7 +11,7 @@ public class Controller {
 	
 	//Constructor
 	public Controller() {
-		conn = new ConnectionFactory(this);
 		IDao = new ItemDao(this);
+		conn = new ConnectionFactory(this);
 	}
 }
