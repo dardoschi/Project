@@ -1,6 +1,8 @@
-package main;
+package dao;
 
 import java.sql.Connection;
+
+import main.Controller;
 
 public class ItemDao {
 	

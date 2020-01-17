@@ -1,6 +1,8 @@
-package main;
+package dao;
 
 import java.sql.*;
+
+import main.Controller;
 
 //get connection restituisce un oggetto Connection		   come usare:Connection connection = ConnectionFactory.getConnection();
 public class ConnectionFactory {
@@ -28,6 +30,7 @@ public class ConnectionFactory {
 			Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url,username, password);
+			System.out.println("Connesso");
 			}
 		catch(SQLException e2) {
 			System.err.println("Errore di connessione");
