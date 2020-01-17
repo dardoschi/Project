@@ -6,6 +6,8 @@ public class Driver {
 		
 		Controller MainController = new Controller();
 		System.out.println("prova");
+		System.out.println("prova2");
 	}
+	
 
 }
