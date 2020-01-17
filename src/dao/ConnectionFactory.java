@@ -12,7 +12,6 @@ public class ConnectionFactory {
     public static final String username = "postgres";
     public static final String password = "password";
     
-    
     //costruttore con controller
     public ConnectionFactory(Controller c) {
     	ctrl = c;
@@ -30,11 +29,14 @@ public class ConnectionFactory {
 			Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url,username, password);
-			System.out.println("Connesso");
+			System.out.println("Connessione effettuata");
 			}
 		catch(SQLException e2) {
 			System.err.println("Errore di connessione");
 		}
 		return conn;
       }
+    
+    
+
 }
