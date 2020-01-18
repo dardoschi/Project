@@ -24,6 +24,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class LoginFrame extends JFrame {
 
@@ -33,22 +38,6 @@ public class LoginFrame extends JFrame {
 	private Controller ctrl;
 	private RegisterNewUserFrame regFrame;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					LoginFrame frame = new LoginFrame();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -57,47 +46,38 @@ public class LoginFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 802, 400);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		setResizable(false);
+//		setResizable(false);
+		//Frame becomes visible at the center of the screen
 		setLocationRelativeTo(null);
 		
 		JPanel TitlePanel = new JPanel();
-		TitlePanel.setBounds(10, 0, 767, 108);
-		contentPane.add(TitlePanel);
-		TitlePanel.setLayout(new BorderLayout(0, 0));
+		TitlePanel.setBackground(Color.WHITE);
 		
 		JLabel LoginTitleLable = new JLabel("Login Page");
+		LoginTitleLable.setToolTipText("");
+		LoginTitleLable.setForeground(Color.BLACK);
+		LoginTitleLable.setBackground(Color.WHITE);
 		LoginTitleLable.setHorizontalAlignment(SwingConstants.CENTER);
 		LoginTitleLable.setFont(new Font("Tahoma", Font.PLAIN, 54));
-		TitlePanel.add(LoginTitleLable, BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 105, 767, 249);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
 		
 		JLabel UsernameLabel = new JLabel("Username");
 		UsernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		UsernameLabel.setBounds(110, 63, 161, 37);
-		panel.add(UsernameLabel);
 		
 		JLabel PasswordLabel = new JLabel("Password");
 		PasswordLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		PasswordLabel.setBounds(110, 122, 161, 37);
-		panel.add(PasswordLabel);
 		
 		UsernameTextField = new JTextField();
 		UsernameTextField.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		UsernameTextField.setBounds(312, 71, 323, 35);
-		panel.add(UsernameTextField);
 		UsernameTextField.setColumns(10);
 		
 		PasswordField = new JPasswordField();
 		PasswordField.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		PasswordField.setBounds(312, 122, 323, 35);
-		panel.add(PasswordField);
 		
 		JButton LoginButton = new JButton("Login");
 		LoginButton.addActionListener(new ActionListener() {
@@ -105,8 +85,6 @@ public class LoginFrame extends JFrame {
 				CheckValidProps();
 			}
 		});
-		LoginButton.setBounds(422, 189, 213, 50);
-		panel.add(LoginButton);
 		LoginButton.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		
 		JButton RegisterButton = new JButton("Register \r\nnew user");
@@ -115,9 +93,85 @@ public class LoginFrame extends JFrame {
 				ctrl.RegisterUserOpen();
 			}
 		});
-		RegisterButton.setBounds(110, 191, 213, 50);
-		panel.add(RegisterButton);
 		RegisterButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(110)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(UsernameLabel, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+							.addGap(41)
+							.addComponent(UsernameTextField, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(PasswordLabel, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+							.addGap(41)
+							.addComponent(PasswordField, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(RegisterButton, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+							.addGap(99)
+							.addComponent(LoginButton, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)))
+					.addGap(132))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(63)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(UsernameLabel, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+							.addGap(6))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(8)
+							.addComponent(UsernameTextField)))
+					.addGap(16)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(PasswordLabel, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(PasswordField)
+							.addGap(2)))
+					.addGap(30)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(2)
+							.addComponent(RegisterButton, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(LoginButton, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+							.addGap(1)))
+					.addGap(8))
+		);
+		panel.setLayout(gl_panel);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(5)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(TitlePanel, GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE))
+					.addGap(6))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(105)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(TitlePanel, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+					.addGap(245))
+		);
+		GroupLayout gl_TitlePanel = new GroupLayout(TitlePanel);
+		gl_TitlePanel.setHorizontalGroup(
+			gl_TitlePanel.createParallelGroup(Alignment.LEADING)
+				.addComponent(LoginTitleLable, GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE)
+		);
+		gl_TitlePanel.setVerticalGroup(
+			gl_TitlePanel.createParallelGroup(Alignment.LEADING)
+				.addComponent(LoginTitleLable, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+		);
+		TitlePanel.setLayout(gl_TitlePanel);
+		contentPane.setLayout(gl_contentPane);
 		
 		
 	}
