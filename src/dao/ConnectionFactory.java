@@ -3,7 +3,7 @@ package dao;
 import java.sql.*;
 import main.Controller;
 
-//get connection restituisce un oggetto Connection		   come usare:Connection connection = ConnectionFactory.getConnection();
+//get connection returns a Connection object		 how to use:Connection connection = ConnectionFactory.getConnection();
 public class ConnectionFactory {
 	
 	Controller ctrl;
@@ -12,13 +12,12 @@ public class ConnectionFactory {
     public static final String password = "password";
     
     
-    //costruttore con controller
     public ConnectionFactory(Controller c) {
     	ctrl = c;
     }
     
     
-    //metodo per creare una singola connessione riutilizzabile
+    //single connection , reusable
     public static Connection getConnection() {
 		try {
 			Class.forName("org.postgresql.Driver");
