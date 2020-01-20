@@ -33,11 +33,21 @@ public class Controller {
 	
 		
 	//open registernewuser frame from login frame
-	public void RegisterUserOpen() {
+	public void RegisterFrameOpen() {
 		RegisterFrame.setVisible(true);	
 		LoginFrame.setVisible(false);
 	}
 	
+	
+	//open login frame from register frame
+	public void LoginFrameOpen() {
+		RegisterFrame.setVisible(false);	
+		LoginFrame.setVisible(true);
+	}
+	
+	
+	
+	//login check
 	public void LoginCheck(String Username, String Password) {
 		if(EDao.CheckLoginProps(Username, Password)==true){
 				MFrame.setVisible(true);
@@ -45,6 +55,18 @@ public class Controller {
 			LoginFrame.UnregisteredUser();
 		}
 
+	}
+	
+	//register a new user
+	public void RegisterUser(String Username, String Password) {
+		if(EDao.RegisterNewUser(Username, Password)==true){
+			RegisterFrame.UserHasBeenRegistered();
+			RegisterFrame.setVisible(false);
+			LoginFrame.setVisible(true);
+		}else {
+			if (EDao.CheckLoginProps(Username, Password)==true)
+				RegisterFrame.UserAlreadyRegistered();
+		}						
 	}
 	
 	
