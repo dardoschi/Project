@@ -49,7 +49,6 @@ public class LoginFrame extends JFrame {
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-//		setResizable(false);
 		//Frame becomes visible at the center of the screen
 		setLocationRelativeTo(null);
 		
@@ -63,8 +62,8 @@ public class LoginFrame extends JFrame {
 		LoginTitleLable.setHorizontalAlignment(SwingConstants.CENTER);
 		LoginTitleLable.setFont(new Font("Tahoma", Font.PLAIN, 54));
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
+		JPanel MainPanel = new JPanel();
+		MainPanel.setBackground(Color.WHITE);
 		
 		JLabel UsernameLabel = new JLabel("Username");
 		UsernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
@@ -79,6 +78,8 @@ public class LoginFrame extends JFrame {
 		PasswordField = new JPasswordField();
 		PasswordField.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		
+		
+		//login button
 		JButton LoginButton = new JButton("Login");
 		LoginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -87,68 +88,70 @@ public class LoginFrame extends JFrame {
 		});
 		LoginButton.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		
+		
+		//register button
 		JButton RegisterButton = new JButton("Register \r\nnew user");
 		RegisterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ctrl.RegisterUserOpen();
+				ctrl.RegisterFrameOpen();
 			}
 		});
 		RegisterButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+		GroupLayout gl_MainPanel = new GroupLayout(MainPanel);
+		gl_MainPanel.setHorizontalGroup(
+			gl_MainPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_MainPanel.createSequentialGroup()
 					.addGap(110)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_MainPanel.createSequentialGroup()
 							.addComponent(UsernameLabel, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
 							.addGap(41)
 							.addComponent(UsernameTextField, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
-						.addGroup(gl_panel.createSequentialGroup()
+						.addGroup(gl_MainPanel.createSequentialGroup()
 							.addComponent(PasswordLabel, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
 							.addGap(41)
 							.addComponent(PasswordField, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
-						.addGroup(gl_panel.createSequentialGroup()
+						.addGroup(gl_MainPanel.createSequentialGroup()
 							.addComponent(RegisterButton, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
 							.addGap(99)
 							.addComponent(LoginButton, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)))
 					.addGap(132))
 		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+		gl_MainPanel.setVerticalGroup(
+			gl_MainPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_MainPanel.createSequentialGroup()
 					.addGap(63)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_MainPanel.createSequentialGroup()
 							.addComponent(UsernameLabel, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
 							.addGap(6))
-						.addGroup(gl_panel.createSequentialGroup()
+						.addGroup(gl_MainPanel.createSequentialGroup()
 							.addGap(8)
 							.addComponent(UsernameTextField)))
 					.addGap(16)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(PasswordLabel, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel.createSequentialGroup()
+						.addGroup(gl_MainPanel.createSequentialGroup()
 							.addComponent(PasswordField)
 							.addGap(2)))
 					.addGap(30)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_MainPanel.createSequentialGroup()
 							.addGap(2)
 							.addComponent(RegisterButton, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, gl_MainPanel.createSequentialGroup()
 							.addComponent(LoginButton, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
 							.addGap(1)))
 					.addGap(8))
 		);
-		panel.setLayout(gl_panel);
+		MainPanel.setLayout(gl_MainPanel);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(5)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(MainPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(TitlePanel, GroupLayout.DEFAULT_SIZE, 767, Short.MAX_VALUE))
 					.addGap(6))
 		);
@@ -156,7 +159,7 @@ public class LoginFrame extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(105)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
+					.addComponent(MainPanel, GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(TitlePanel, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
 					.addGap(245))
