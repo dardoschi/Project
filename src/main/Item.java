@@ -4,8 +4,14 @@ public class Item {
 	
 	
 	public Item(){
-		double price;
-		char size;
+		int Id;
+		String Size;
+		double Price;
+		String Type;
+		int InStock;
+		String Colour;
+		
+		
 	}
 	
 
