@@ -5,13 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import javax.swing.JTable;
-import javax.swing.table.TableModel;
-
 import frames.MainFrame;
 import main.Controller;
-import net.proteanit.sql.DbUtils;
+import main.Item;
+
 
 
 public class ItemDao {
@@ -19,28 +16,54 @@ public class ItemDao {
 	private Controller ctrl;
 	Connection connection = ConnectionFactory.getConnection();
 	private MainFrame MFrame;
-	public JTable daoItemTable = new JTable();
 	
+	//constructor
 	public ItemDao (Controller Contrl) {
 		ctrl = Contrl;
 		};
 	
 		
-	//load jtable in main frame
-	public JTable LoadTable() {
-		try {
-			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("select * from item");
-			daoItemTable.setModel(DbUtils.resultSetToTableModel(rs));
-			return daoItemTable;
-		}catch (SQLException e2) {
-				e2.printStackTrace();		
-				return null;
+//	//load jtable in main frame OLD IMPLEMENTATION
+//	public void LoadTable() {
+//		try {
+//			Statement st = connection.createStatement();
+//			ResultSet rs = st.executeQuery("select * from item");
+//			ctrl.ctrlItemTable.setModel(DbUtils.resultSetToTableModel(rs));
+////			return daoItemTable;
+//		}catch (SQLException e2) {
+//				e2.printStackTrace();		
+////				return null;
+//		}
+//	}
+		
+		
+		//Loads the ArrayList used for the jtable in mainframe
+		public void getWarehousefromDB() {
+			try {
+				Statement st = connection.createStatement();
+				String query ="select * from Item";
+				ResultSet rs = st.executeQuery(query);
+				while (rs.next()) {
+					Item s = new Item();
+					s.setId(rs.getInt("id"));
+					s.setSize(rs.getString("size"));
+					s.setPrice(rs.getDouble("price"));
+					s.setType(rs.getString("type"));
+					s.setInStock(rs.getInt("instock"));
+					s.setColour(rs.getString("colour"));
+					ctrl.Warehouse.add(s);
+				}
+			}
+			catch (SQLException e ) {
+				e.printStackTrace();
+			}		
+			
 		}
-	}
+
 	
-	//Add new item
-	public void AddNewItem(int Id, String Size, double Price, String Type, int InStock, String Colour) {
+	
+	//Add new item to Database, after this reload the arrayList
+	public void AddNewItemToDB(int Id, String Size, double Price, String Type, int InStock, String Colour) {
 		PreparedStatement st;
 		try {
 				st = connection.prepareStatement("insert into item (values (?,?,?,?,?,?));");
@@ -76,21 +99,4 @@ public class ItemDao {
 					return false;
 				}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

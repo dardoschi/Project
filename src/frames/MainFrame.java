@@ -16,7 +16,12 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 import java.sql.*;
 import java.awt.Color;
 import javax.swing.JPopupMenu;
@@ -38,7 +43,9 @@ public class MainFrame extends JFrame {
 	
 	private Controller ctrl;
 	private Connection conn = ConnectionFactory.getConnection();
-	private JTable ItemTable;
+	private JScrollPane ItemscrollPane;
+	public ItemTableModel TModel;
+	public JTable ItemTable;
 
 	public MainFrame(Controller c){
 		ctrl = c;
@@ -70,14 +77,18 @@ public class MainFrame extends JFrame {
 		MainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(MainPanel);
 		
-		ItemTable = ctrl.LoadTable();
-		JScrollPane ItemscrollPane = new JScrollPane(ItemTable);
+		//creates an istance of the custom table model with the controller arraylist(warehouse)
+		TModel = new ItemTableModel(c.Warehouse);
+		ItemTable = new JTable(TModel);
+		//inserts the table into the scrollpanel
+		ItemscrollPane = new JScrollPane(ItemTable);
 		
 		JButton SearchRefreshBtn = new JButton("Search/Refresh");
 		SearchRefreshBtn.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		SearchRefreshBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ctrl.LoadTable();
+//				ctrl.LoadTable(); // REFRESH HERE        //implementa un metodo che ricarica arraylist
+														 //e poi firetabledatachanged
 			}
 		});
 		GroupLayout gl_MainPanel = new GroupLayout(MainPanel);
@@ -103,8 +114,8 @@ public class MainFrame extends JFrame {
 							.addGap(28))))
 		);
 		
-		ItemTable = ctrl.LoadTable();
 		ItemscrollPane.setViewportView(ItemTable);
 		MainPanel.setLayout(gl_MainPanel);
 	}
+	
 }

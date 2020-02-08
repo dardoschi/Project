@@ -265,9 +265,6 @@ public class AddNewItemFrame extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	
-	
-	// aggiungere una funzione che controlla in inserimento(in base al Db/ oppure con bottoni/varie) e in caso fa avvenire la registrazione
 	//Add new Item
 	private void AddNewItem(int Id, double Price, int InStock) {
 		ctrl.AddNewItem(Id, NewSizeCB.getSelectedItem().toString(),Price, NewTypeCB.getSelectedItem().toString() ,InStock , NewColorCB.getSelectedItem().toString());
@@ -288,24 +285,4 @@ public class AddNewItemFrame extends JFrame {
 		}
 		else return false;
 	}
-	
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
