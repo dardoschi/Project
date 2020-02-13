@@ -2,37 +2,36 @@ package frames;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.NumberFormatter;
-
-import main.Controller;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.NumberFormatter;
 
-public class AddNewItemFrame extends JFrame {
+import main.Controller;
+import main.Item;
 
-	private JPanel contentPane;
+public class EditSelectedItemFrame extends JFrame {
+	
 	private Controller ctrl;
+	private JPanel contentPane;
 	private JFormattedTextField NewIdTF;
 	private JComboBox<String> NewSizeCB;
 	private JFormattedTextField NewPriceTF;
@@ -43,8 +42,9 @@ public class AddNewItemFrame extends JFrame {
 	private JButton CancelBtn;
 	private JLabel lblInStock;
 	private JFormattedTextField NewInStockTF;
+	private Item SelectedItem;
 
-	public AddNewItemFrame(Controller c) {
+	public EditSelectedItemFrame(Controller c) {
 		ctrl = c;
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 571, 547);
@@ -141,33 +141,56 @@ public class AddNewItemFrame extends JFrame {
 		lblColour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblColour.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
-		lblTitle = new JLabel("Add New Item");
+		lblTitle = new JLabel("Edit Item");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		lblTitle.setToolTipText("Add New Item");
+		lblTitle.setToolTipText("Edit the selected Item");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		AddItemBtn = new JButton("Add Item");
+		AddItemBtn = new JButton("Edit Item");
 		AddItemBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					if((InputCheck(NewIdTF,NewPriceTF,NewInStockTF)==true)){
-						int Id = (int)NewIdTF.getValue();
-						if(CheckItemId(Id)==true) {
-							// values of the JFormattedTextField
-							double Price = (double)NewPriceTF.getValue();
-							int InStock = (int)NewInStockTF.getValue();
-							AddNewItem(Id, Price, InStock);
-							NewIdTF.setValue(null);
-							NewPriceTF.setValue(null);
-							NewInStockTF.setValue(null);
-							setVisible(false);
-						}
-						else 
-							JOptionPane.showMessageDialog(new JFrame(), "Please change id","ERROR", JOptionPane.ERROR_MESSAGE);
+				if (check() == true) {
+					editSelectedItem();
+				}
+			}
+
+			private boolean check() {
+				if(inputCheck() == true && NewIdCheck() == true) {
+				  return true;
+				}
+				else
+					return false;
+			}
+			
+			//checks if Id already exist
+			private boolean NewIdCheck() {
+				int OldId = SelectedItem.getId();
+				if(OldId!=(int) NewIdTF.getValue()) {
+					if(ctrl.CheckItemId((int) NewIdTF.getValue())==false) {
+						JOptionPane.showMessageDialog(new JFrame(), "Please change id","ERROR", JOptionPane.ERROR_MESSAGE);
+						return false;
 					}
-					else {
-						JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
-					}
+				}return true;
+			}
+			//checks for black spaces, pretty much useless
+			private boolean inputCheck() {
+				if(NewIdTF.getValue()==null || NewPriceTF.getValue()==null || NewInStockTF.getValue()==null) { 
+					JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
+				}return true;
+			}
+
+			private void editSelectedItem() {
+				int OldId = SelectedItem.getId();
+				int Id = (int) NewIdTF.getValue();
+				String Size = NewSizeCB.getSelectedItem().toString();
+				Double Price = (Double) NewPriceTF.getValue();
+				String Type = NewTypeCB.getSelectedItem().toString();
+				int InStock = (int) NewInStockTF.getValue();
+				String Color = NewColorCB.getSelectedItem().toString();
+				ctrl.updateItemInDB(Id, Size, Price, Type, InStock, Color, OldId);
+				dispose();
+				SelectedItem = new Item();
 			}
 		});
 		AddItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -175,11 +198,8 @@ public class AddNewItemFrame extends JFrame {
 		CancelBtn = new JButton("Cancel");
 		CancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e2) {
-				setVisible(false);
-				NewIdTF.setValue(null);
-				NewPriceTF.setValue(null);
-				NewInStockTF.setValue(null);
-
+				dispose();
+				SelectedItem = new Item();
 			}
 		});
 		CancelBtn.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -193,7 +213,65 @@ public class AddNewItemFrame extends JFrame {
 		NewInStockTF.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewInStockTF.setColumns(10);
 		
-		
+		//waits for the window to open to execute this code
+		addWindowListener(new WindowAdapter() {
+	          public void windowOpened(WindowEvent e) {
+	        	  fieldSetter();
+	          }
+	        //fills the frame fields with the SelectedItem current values, so you can modify them
+			private void fieldSetter() {
+			  	  SelectedItem = ctrl.fetchSelectedItem();
+			  	  NewIdTF.setValue(SelectedItem.getId());
+			  	  NewPriceTF.setValue(SelectedItem.getPrice());
+			  	  NewInStockTF.setValue(SelectedItem.getInStock());
+			  	  NewSizeCB.setSelectedIndex(getNewSizeCB());
+			  	  NewTypeCB.setSelectedIndex(getNewTypeCB());
+			  	  NewColorCB.setSelectedIndex(getNewColorCB());
+					
+			}
+			private int getNewSizeCB() {
+				String size = SelectedItem.getSize();
+				switch(size) {
+					case "XS ":return 0;
+					case "S  ":return 1;
+					case "M  ":return 2;
+					case "L  ":return 3;
+					case "XL ":return 4;
+					case "XXL":return 5;
+				default:return 0;
+				}
+			}
+			private int getNewTypeCB() {
+				String type = SelectedItem.getType();
+				switch(type) {
+					case "Coat      ":return 0;
+					case "Shoe      ":return 1;
+					case "Dress     ":return 2;
+					case "Jeans     ":return 3;
+					case "T-shirt   ":return 4;
+					case "Skirt     ":return 5;
+					case "Bag       ":return 6;
+					case "Briefcase ":return 7;
+				default:return 0;
+				}
+			}
+			private int getNewColorCB() {
+				String type = SelectedItem.getColour();
+				switch(type) {
+					case "Red     ":return 0;
+					case "Blue    ":return 1;
+					case "Green   ":return 2;
+					case "Yellow  ":return 3;
+					case "Black   ":return 4;
+					case "White   ":return 5;
+					case "Purple  ":return 6;
+					case "Orange  ":return 7;
+					case "Brown   ":return 8;
+					case "Jeans   ":return 9;
+				default:return 0;
+				}
+			}
+	        });
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -264,26 +342,7 @@ public class AddNewItemFrame extends JFrame {
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
+
 	}
-	
-	//Add new Item
-	private void AddNewItem(int Id, double Price, int InStock) {
-		ctrl.AddNewItem(Id, NewSizeCB.getSelectedItem().toString(),Price, NewTypeCB.getSelectedItem().toString() ,InStock , NewColorCB.getSelectedItem().toString());
-	}
-	
-	//checks if id,price and instock are valid
-	private boolean InputCheck(JFormattedTextField NewIdTF, JFormattedTextField NewPriceTF, JFormattedTextField NewInStockTF) {
-		if(NewIdTF.getValue()==null || NewPriceTF.getValue()==null || NewInStockTF.getValue()==null) {
-			return false;
-		}else
-			return true;
-	}
-	
-	//check if an item id already exist
-	private boolean CheckItemId(int Id) {
-		if(ctrl.CheckItemId(Id)==true) {
-			return true;
-		}
-		else return false;
-	}
+
 }
