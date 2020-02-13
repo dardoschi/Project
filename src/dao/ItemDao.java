@@ -1,5 +1,4 @@
 package dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,12 +8,10 @@ import frames.MainFrame;
 import main.Controller;
 import main.Item;
 
-
-
 public class ItemDao {
 	
 	private Controller ctrl;
-	Connection connection = ConnectionFactory.getConnection();
+	private Connection connection = ConnectionFactory.getConnection();
 	private MainFrame MFrame;
 	
 	//constructor
@@ -60,8 +57,6 @@ public class ItemDao {
 			
 		}
 
-	
-	
 	//Add new item to Database, after this reload the arrayList
 	public void AddNewItemToDB(int Id, String Size, double Price, String Type, int InStock, String Colour) {
 		PreparedStatement st;
@@ -99,4 +94,65 @@ public class ItemDao {
 					return false;
 				}
 	}
+	
+	
+	
+	//get selected item from JTable (fetch its data from DB)
+	public Item getSelectedItemFromDB(int Id) {
+		PreparedStatement st;
+		try {
+			st = connection.prepareStatement("SELECT * from item WHERE id = ? ");
+			st.setInt(1,  Id);
+			ResultSet rs = st.executeQuery();
+			Item selected = new Item();
+			while (rs.next()) {
+				selected.setId(rs.getInt("id"));
+				selected.setSize(rs.getString("size"));
+				selected.setPrice(rs.getDouble("price"));
+				selected.setType(rs.getString("type"));
+				selected.setInStock(rs.getInt("instock"));
+				selected.setColour(rs.getString("colour"));
+			}
+			return selected;
+		}	
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public void updateItem(int Id, String Size, double Price, String Type, int InStock, String Colour, int OldId) {
+		PreparedStatement st;
+		try {
+			st = connection.prepareStatement("UPDATE item SET id = ?, size = ?, price = ?, type = ?, instock = ?, colour = ? WHERE id = ?");
+			st.setInt(1, Id);
+			st.setString(2, Size);
+			st.setDouble(3, Price);
+			st.setString(4, Type);
+			st.setInt(5, InStock);
+			st.setString(6, Colour);
+			st.setInt(7,OldId);
+			ResultSet rs = st.executeQuery();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -1,7 +1,7 @@
 package main;
 
 	public class Item {
-	
+
 		int Id;
 		String Size;
 		double Price;
@@ -12,7 +12,15 @@ package main;
 		//constructor
 		public Item() {
 		}
-		
+//		//constructor with all fields
+//		public Item(int id, String size, double price, String type, int inStock, String colour) {
+//			Id = id;
+//			Size = size;
+//			Price = price;
+//			Type = type;
+//			InStock = inStock;
+//			Colour = colour;
+//		}
 		//getters and setters
 		public int getId() {
 			return Id;

@@ -14,6 +14,7 @@ import javax.swing.table.TableModel;
 
 import dao.ConnectionFactory;
 import frames.AddNewItemFrame;
+import frames.EditSelectedItemFrame;
 import frames.ItemTableModel;
 import frames.LoginFrame;
 import frames.RegisterNewUserFrame;
@@ -23,18 +24,17 @@ import dao.EmployeesDao;
 
 public class Controller {
 	
-	private ConnectionFactory conn;
+	private static ConnectionFactory conn;
 	private ItemDao IDao;
 	private EmployeesDao EDao;
 	private LoginFrame LoginFrame;
 	private MainFrame MFrame;
 	private RegisterNewUserFrame RegisterFrame;
+	private EditSelectedItemFrame EditFrame;
+	private Item SelectedItem;
 	public AddNewItemFrame AddFrame;
 //	public JTable ctrlItemTable = new JTable();   OLD IMPLEMENTATION
 	public ArrayList<Item> Warehouse;
-	
-
-	
 	
 	//Constructor
 	public Controller(){
@@ -42,12 +42,12 @@ public class Controller {
 		conn = new ConnectionFactory(this);
 		IDao = new ItemDao(this);
 		EDao = new EmployeesDao(this);
-//		CModel = new ItemTableModel(this);
 		LoginFrame = new LoginFrame(this);
 		LoadWarehouseArray();
 		MFrame = new MainFrame(this);
 		RegisterFrame = new RegisterNewUserFrame(this);
 		AddFrame = new AddNewItemFrame(this);
+//		EditFrame = new EditSelectedItemFrame(this);
 //		LoginFrame.setVisible(true);
 		MFrame.setVisible(true);
 	}
@@ -57,10 +57,10 @@ public class Controller {
 	public void add(Item i) {
 		Warehouse.add(i);
 	}
-	public ArrayList<Item>getWarehouse(){
+	public ArrayList<Item> getWarehouse(){
 		return Warehouse;
 	}
-	public ArrayList<Item>deleteWarehouseArray(){
+	public ArrayList<Item> deleteWarehouseArray(){
 		Warehouse.clear();
 		return Warehouse;
 	}
@@ -68,6 +68,7 @@ public class Controller {
 	public void LoadWarehouseArray() {
 		IDao.getWarehousefromDB();
 	}
+	//reloads the Warehouse arrayList (updates it with current DB values)(use it after insert/delete/update querys)
 	public ArrayList<Item> reloadWarehouseArray(){
 		deleteWarehouseArray();
 		LoadWarehouseArray();
@@ -75,12 +76,13 @@ public class Controller {
 	}
 	
 	
+	
+	
 	//open registernewuser frame from login frame
 	public void RegisterFrameOpen() {
 		RegisterFrame.setVisible(true);	
 		LoginFrame.setVisible(false);
 	}
-	
 	
 	//open login frame from register frame
 	public void LoginFrameOpen() {
@@ -93,7 +95,11 @@ public class Controller {
 		AddFrame.setVisible(true);
 	}
 	
-	
+	//open EditSelectedItemFrame
+	public void EditSelectedFrameOpen() {
+		EditFrame = new EditSelectedItemFrame(this);
+		EditFrame.setVisible(true);
+	}
 	
 	//login check
 	public void LoginCheck(String Username, String Password) {
@@ -125,16 +131,23 @@ public class Controller {
 //		return ctrlItemTable;
 //	}
 	
+	//reloads the JTable in MainFrame (use after every change to the Database)
+	public void ReloadDBTable() {
+		reloadWarehouseArray();
+		MFrame.TModel.fireTableDataChanged();
+	}
 	
 	//add new item
 	public void AddNewItem(int Id, String Size, double Price, String Type, int InStock, String Colour) {
 		IDao.AddNewItemToDB(Id, Size, Price, Type, InStock, Colour);
-		//since the table data is based on the arraylist, it need to be emptied and then refilled
-		reloadWarehouseArray();
-		//reloads table
-		MFrame.TModel.fireTableDataChanged();
-		
+		ReloadDBTable();
 		}
+	
+	//updates the SelectedItem  (from the editselectedframe)
+	public void updateItemInDB(int Id, String Size, double Price, String Type, int InStock, String Colour, int OldId) {
+		IDao.updateItem(Id, Size, Price, Type, InStock, Colour, OldId);
+		ReloadDBTable();
+	}
 
 	//check if an item id already exists
 	public boolean CheckItemId(int Id){
@@ -142,5 +155,21 @@ public class Controller {
 			return true;
 		}
 		else return false;
-	}	
-}
+	}
+	
+	//get the item fetched from DB with its Id
+	public Item getItem(int Id) {
+		SelectedItem = IDao.getSelectedItemFromDB(Id);
+		return SelectedItem;
+	}
+	
+	public Item fetchSelectedItem() {
+		return SelectedItem;
+	}
+	
+	
+}	
+
+
+
+
