@@ -1,26 +1,27 @@
-package frames;
+package TableModels;
 
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 //import javax.swing.table.DefaultTableModel;
 
+import Item.Item;
 import main.Controller;
-import main.Item;
-//**//to reload table, reload controller arraylist and call firetabledatachanged on the ItemTableModel variable//**//
-	public class ItemTableModel extends AbstractTableModel {
+//**//to reload table, reload controller arraylist and call firetabledatachanged on the ItemInDBTableModel variable//**//
+	public class ItemInDBTableModel extends AbstractTableModel {
 			private Controller c;
 	
-		    private String[] columnNames = { "Id","Size","Price","Type","In Stock","Colour"}; 
-		    private Class<?>[] types = new Class[]{Integer.class, String.class, Double.class, String.class, Integer.class, String.class};
+		    private String[] columnNames = { "Id","Size","Price","Type","Colour","InStock"}; 
+		    private Class<?>[] types = new Class[]{Integer.class, String.class, Double.class, String.class, String.class, Integer.class};
 		    
 		    //needed as dummy for the constructor(Warehouse arrayList of the controller copied here)
 			public ArrayList<Item> Warehouse ;
 			
-			public ItemTableModel(Controller ctrl) {
+			public ItemInDBTableModel(Controller ctrl) {
 				c = ctrl;
 			}
 			
-		    public ItemTableModel (ArrayList<Item> CWarehouse){
+			
+		    public ItemInDBTableModel (ArrayList<Item> CWarehouse){
 		        this.Warehouse = CWarehouse;
 		        fireTableDataChanged();
 		    }
@@ -66,8 +67,8 @@ import main.Item;
 		            case 1: return obj.getSize();
 		            case 2: return obj.getPrice();
 		            case 3: return obj.getType();
-		            case 4: return obj.getInStock();
-		            case 5: return obj.getColour();
+		            case 4: return obj.getColour();
+		            case 5: return obj.getInStock();
 		            default: return null;
 		        }
 		    }  

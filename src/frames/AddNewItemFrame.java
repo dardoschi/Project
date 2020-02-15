@@ -141,13 +141,13 @@ public class AddNewItemFrame extends JFrame {
 		lblColour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblColour.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
-		lblTitle = new JLabel("Add New Item");
+		lblTitle = new JLabel("Add New ItemInDB");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		lblTitle.setToolTipText("Add New Item");
+		lblTitle.setToolTipText("Add New ItemInDB");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		AddItemBtn = new JButton("Add Item");
+		AddItemBtn = new JButton("Add ItemInDB");
 		AddItemBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					if((InputCheck(NewIdTF,NewPriceTF,NewInStockTF)==true)){
@@ -266,7 +266,7 @@ public class AddNewItemFrame extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	//Add new Item
+	//Add new ItemInDB
 	private void AddNewItem(int Id, double Price, int InStock) {
 		ctrl.AddNewItem(Id, NewSizeCB.getSelectedItem().toString(),Price, NewTypeCB.getSelectedItem().toString() ,InStock , NewColorCB.getSelectedItem().toString());
 	}

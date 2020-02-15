@@ -4,15 +4,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import frames.MainFrame;
+
+import Item.Item;
+import frames.MainFrameAdmin;
 import main.Controller;
-import main.Item;
 
 public class ItemDao {
 	
 	private Controller ctrl;
 	private Connection connection = ConnectionFactory.getConnection();
-	private MainFrame MFrame;
+	private MainFrameAdmin MFrame;
 	
 	//constructor
 	public ItemDao (Controller Contrl) {
@@ -38,7 +39,7 @@ public class ItemDao {
 		public void getWarehousefromDB() {
 			try {
 				Statement st = connection.createStatement();
-				String query ="select * from Item";
+				String query ="select * from item";
 				ResultSet rs = st.executeQuery(query);
 				while (rs.next()) {
 					Item s = new Item();
@@ -139,9 +140,43 @@ public class ItemDao {
 		}
 	}
 	
+	public void updateInStockDBValue(Item item) {
+		PreparedStatement st;
+		try {
+			st = connection.prepareStatement("UPDATE item SET instock = ? WHERE id = ?");
+			st.setInt(1, item.getInStock());
+			st.setInt(2, item.getId());
+			ResultSet rs = st.executeQuery();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
+	//UPDATE item SET instock = (instock - a) WHERE id = b
 	
+   /*CREATE FUNCTION update_on_sale (a integer, b integer) RETURNS void AS '
+    UPDATE item SET instock = (instock - a) WHERE id = b
+	' LANGUAGE SQL ; */
+	
+	/*				DO $$ BEGIN
+    				PERFORM update_on_sale(parametri);
+					END $$;
+	 */
+	
+	//updates the InStock value for the sold items
+	public void updateOnSaleInDB(int sold, int id) {
+		PreparedStatement st;
+		try {
+			st = connection.prepareStatement("select update_on_sale(?,?)");
+			st.setInt(1, sold);
+			st.setInt(2, id);
+			ResultSet rs = st.executeQuery();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	

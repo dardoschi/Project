@@ -25,8 +25,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
+import Item.Item;
 import main.Controller;
-import main.Item;
 
 public class EditSelectedItemFrame extends JFrame {
 	
@@ -141,13 +141,13 @@ public class EditSelectedItemFrame extends JFrame {
 		lblColour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblColour.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
-		lblTitle = new JLabel("Edit Item");
+		lblTitle = new JLabel("Edit ItemInDB");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		lblTitle.setToolTipText("Edit the selected Item");
+		lblTitle.setToolTipText("Edit the selected ItemInDB");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		AddItemBtn = new JButton("Edit Item");
+		AddItemBtn = new JButton("Edit ItemInDB");
 		AddItemBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (check() == true) {
