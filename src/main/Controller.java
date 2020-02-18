@@ -23,23 +23,21 @@ import frames.MainFrameEmployee;
 import frames.RegisterNewUserFrame;
 import frames.MainFrameAdmin;
 import dao.ItemDao;
-import dao.EmployeesDao;
+import dao.EmployeeDao;
 
 public class Controller {
 	
 	private static ConnectionFactory conn;
 	private ItemDao IDao;
-	private EmployeesDao EDao;
+	private EmployeeDao EDao;
 	private LoginFrame LoginFrame;
 	private MainFrameAdmin MAdminFrame;
 	private MainFrameEmployee MEmployeeFrame;
 	private RegisterNewUserFrame RegisterFrame;
 	private EditSelectedItemFrame EditFrame;
 	private Item selecteditem;
-	private Item CartItem;
 	private CartFrame CFrame;
 	public AddNewItemFrame AddFrame;
-//	public JTable ctrlItemTable = new JTable();   OLD IMPLEMENTATION
 	public ArrayList<Item> Warehouse;
 	public ArrayList<Item> Cart;
 	
@@ -49,7 +47,7 @@ public class Controller {
 		Cart = new ArrayList<Item>();
 		conn = new ConnectionFactory(this);
 		IDao = new ItemDao(this);
-		EDao = new EmployeesDao(this);
+		EDao = new EmployeeDao(this);
 		LoginFrame = new LoginFrame(this);
 		LoadWarehouseArray();
 		MAdminFrame = new MainFrameAdmin(this);
@@ -57,9 +55,9 @@ public class Controller {
 		RegisterFrame = new RegisterNewUserFrame(this);
 		AddFrame = new AddNewItemFrame(this);
 		CFrame = new CartFrame(this);
-//		LoginFrame.setVisible(true);
+		LoginFrame.setVisible(true);
 //		MAdminFrame.setVisible(true);
-		MEmployeeFrame.setVisible(true);
+//		MEmployeeFrame.setVisible(true);
 	}
 	
 	
@@ -117,35 +115,41 @@ public class Controller {
 		CFrame.setVisible(true);
 	}
 	
-	//login check
-	public void LoginCheck(String Username, String Password) {
-		if(EDao.CheckLoginProps(Username, Password)==true){
-				MAdminFrame.setVisible(true);
-				LoginFrame.setVisible(false);
-		}else {
+	
+	public void Login(String Username, String Password) {
+		Employee user = EDao.Login(Username, Password);
+		if(user == null) {
 			LoginFrame.UnregisteredUser();
-		}
-
+		}else {
+			if(user.isAdmin()==true) {
+			MAdminFrame.setVisible(true);
+			LoginFrame.setVisible(false);
+				}else 
+					MEmployeeFrame.setVisible(true);
+					LoginFrame.setVisible(false);
+			}
 	}
 	
+				
+	public void LogOut() {
+		MAdminFrame.setVisible(false);
+		MEmployeeFrame.setVisible(false);
+		LoginFrame.setVisible(true);
+	}
+		
+	
+	
 	//register a new user
-	public void RegisterUser(String Username, String Password) {
-		if(EDao.RegisterNewUser(Username, Password)==true){
+	public void RegisterUser(String Username, String Password,boolean Admin) {
+		if(EDao.RegisterNewUser(Username, Password,Admin)==true){
 			RegisterFrame.UserHasBeenRegistered();
 			RegisterFrame.setVisible(false);
 			LoginFrame.setVisible(true);
 		}else {
-			if (EDao.CheckLoginProps(Username, Password)==true)
+			if (EDao.Login(Username, Password)!=null)
 				RegisterFrame.UserAlreadyRegistered();
 		}						
 	}
-	
-//	//loads the MainFrameAdmin JTable  OLD IMPLEMENTATION
-//	public JTable LoadTable() {
-////		ctrlItemTable = IDao.LoadTable();
-//		IDao.LoadTable();
-//		return ctrlItemTable;
-//	}
 	
 	//reloads the JTable in MainFrameAdmin (use after every change to the Database)
 	public void ReloadDBTable() {
@@ -166,7 +170,7 @@ public class Controller {
 		ReloadDBTable();
 	}
 
-	//check if an item id already exists
+	//check if an item id already exists, true ok, false already exists
 	public boolean CheckItemId(int Id){
 		if((IDao.CheckItemId(Id))==true) {
 			return true;
@@ -189,11 +193,11 @@ public class Controller {
 		if(selected.getInStock()==0) {
 			JOptionPane.showMessageDialog(new JFrame(), "Currently not available","ERROR", JOptionPane.ERROR_MESSAGE);
 		}else {
-//			CartItem = new Item(selected);
+
 			if(selected.checkInCart(Cart)==false) {
 				selected.setInCart(1);
 				selected.inStockMinusOne();
-				Cart.add(selected);   //elimina questa chiusura di parentesi
+				Cart.add(selected);   
 				}else {
 					//get the selected index in cart
 					int index = selected.getSelectedItemIndex(Cart);
@@ -202,10 +206,12 @@ public class Controller {
 					}
 			CFrame.TModel.fireTableDataChanged();
 			MEmployeeFrame.TModel.fireTableDataChanged();
+			getTotal();
+			CFrame.updateTotal();
 		}
 	}
 	
-	//
+	//payment
 	public void BuyandUpdate(){
 		for(Item i : Cart) {
 			int id = i.getId();
@@ -214,7 +220,71 @@ public class Controller {
 		}
 		Cart.clear();
 		MEmployeeFrame.TModel.fireTableDataChanged();
+		CFrame.TModel.fireTableDataChanged();
+		CFrame.updateTotal();
 	}
+	
+	
+	//removes one of the selected item from Cart
+	public void removeOneFromCart(Item selected) {
+		int index = selected.getSelectedItemIndex(Cart);
+		Cart.get(index).inCartMinusOne();
+		Cart.get(index).inStockPlusOne();
+		if(selected.getInCart()==0) {
+			Cart.remove(index);
+		}
+		CFrame.TModel.fireTableDataChanged();
+		MEmployeeFrame.TModel.fireTableDataChanged();
+		CFrame.updateTotal();
+	}
+	
+	//empties the cart and reloads the table
+	public void emptyCart() {
+		Cart.clear();
+		ReloadDBTable();
+		CFrame.TModel.fireTableDataChanged();
+		CFrame.updateTotal();
+	}
+	
+	//removes all of one item in cart
+	public void removeAllFromCart(Item selected) {
+		int index = selected.getSelectedItemIndex(Cart);
+		Cart.get(index).inStockAdd(Cart.get(index).getInCart());
+		Cart.get(index).zeroInCart();
+		Cart.remove(index);
+		CFrame.TModel.fireTableDataChanged();
+		MEmployeeFrame.TModel.fireTableDataChanged();
+		CFrame.updateTotal();
+	}
+	
+	//calculates the total price
+	public double getTotal() {
+		double total = 0;
+		for(Item i : Cart) {
+			int multiplier = i.getInCart();
+			total = total + (i.getPrice() * multiplier);
+		}
+		return total;
+	}
+	
+	
+	//removes item from databse
+	public void removeFromWarehouse(int id) {
+		IDao.removeFromWarehouse(id);
+		ReloadDBTable();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }	

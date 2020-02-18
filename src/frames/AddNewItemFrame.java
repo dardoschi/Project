@@ -86,7 +86,7 @@ public class AddNewItemFrame extends JFrame {
 		DoubleFormatter.setValueClass(Double.class);
 		Doubleformat.setMinimumFractionDigits(2);
 		Doubleformat.setMaximumFractionDigits(2);
-		DoubleFormatter.setAllowsInvalid(true);
+		DoubleFormatter.setAllowsInvalid(false);
 		DoubleFormatter.setCommitsOnValidEdit(true);
 		Doubleformat.setRoundingMode(RoundingMode.HALF_UP);
 		
@@ -141,33 +141,49 @@ public class AddNewItemFrame extends JFrame {
 		lblColour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblColour.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
-		lblTitle = new JLabel("Add New ItemInDB");
+		lblTitle = new JLabel("Add New Item");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		lblTitle.setToolTipText("Add New ItemInDB");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		AddItemBtn = new JButton("Add ItemInDB");
+		AddItemBtn = new JButton("Add Item");
 		AddItemBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					if((InputCheck(NewIdTF,NewPriceTF,NewInStockTF)==true)){
-						int Id = (int)NewIdTF.getValue();
-						if(CheckItemId(Id)==true) {
-							// values of the JFormattedTextField
-							double Price = (double)NewPriceTF.getValue();
-							int InStock = (int)NewInStockTF.getValue();
-							AddNewItem(Id, Price, InStock);
-							NewIdTF.setValue(null);
-							NewPriceTF.setValue(null);
-							NewInStockTF.setValue(null);
-							setVisible(false);
-						}
-						else 
-							JOptionPane.showMessageDialog(new JFrame(), "Please change id","ERROR", JOptionPane.ERROR_MESSAGE);
+//					if((InputCheck(NewIdTF,NewPriceTF,NewInStockTF)==true)){
+//						int Id = (int)NewIdTF.getValue();
+//						if(CheckItemId(Id)==true) {
+//							// values of the JFormattedTextField
+//							double Price = (double)NewPriceTF.getValue();
+//							int InStock = (int)NewInStockTF.getValue();
+//							AddNewItem(Id, Price, InStock);
+//							NewIdTF.setValue(null);
+//							NewPriceTF.setValue(null);
+//							NewInStockTF.setValue(null);
+//							setVisible(false);
+//						}
+//						else 
+//							JOptionPane.showMessageDialog(new JFrame(), "Please change id","ERROR", JOptionPane.ERROR_MESSAGE);
+//					}
+//					else {
+//						JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
+//					}
+				if(inputCheck()==true) {
+					if(ctrl.CheckItemId((int) NewIdTF.getValue())==true) {
+						ctrl.AddNewItem((int) NewIdTF.getValue(),NewSizeCB.getSelectedItem().toString(), (int) NewPriceTF.getValue(), NewTypeCB.getSelectedItem().toString(),(int) NewInStockTF.getValue(), NewColorCB.getSelectedItem().toString());
+					}else
+						JOptionPane.showMessageDialog(new JFrame(), "Please change id","ERROR", JOptionPane.ERROR_MESSAGE);
+					}else {
+					JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
 					}
-					else {
-						JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
-					}
+				}
+			//checks for blank spaces, true if ok
+			private boolean inputCheck() {
+				if(NewIdTF.getValue()==null || NewPriceTF.getValue()==null || NewInStockTF.getValue()==null) { 
+					JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
+				return true;
 			}
 		});
 		AddItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -202,31 +218,30 @@ public class AddNewItemFrame extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(68)
-							.addComponent(CancelBtn, GroupLayout.PREFERRED_SIZE, 147, Short.MAX_VALUE)
-							.addGap(66)
-							.addComponent(AddItemBtn, GroupLayout.PREFERRED_SIZE, 166, Short.MAX_VALUE))
+							.addComponent(CancelBtn, GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE)
+							.addGap(58)
+							.addComponent(AddItemBtn, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(36)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblType, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblPrice, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblSize, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblID, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblColour, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblInStock, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+								.addComponent(lblType, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+								.addComponent(lblPrice, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+								.addComponent(lblSize, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+								.addComponent(lblID, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+								.addComponent(lblColour, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+								.addComponent(lblInStock, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addComponent(NewColorCB, 0, 270, Short.MAX_VALUE)
-									.addComponent(NewTypeCB, 0, 270, Short.MAX_VALUE)
-									.addComponent(NewPriceTF, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-									.addComponent(NewSizeCB, Alignment.TRAILING, 0, 270, Short.MAX_VALUE)
-									.addComponent(NewIdTF, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
-								.addComponent(NewInStockTF, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))))
+								.addComponent(NewColorCB, 0, 272, Short.MAX_VALUE)
+								.addComponent(NewTypeCB, 0, 272, Short.MAX_VALUE)
+								.addComponent(NewPriceTF, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+								.addComponent(NewSizeCB, Alignment.TRAILING, 0, 272, Short.MAX_VALUE)
+								.addComponent(NewIdTF, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+								.addComponent(NewInStockTF, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))))
 					.addGap(100))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(95)
-					.addComponent(lblTitle, GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+					.addComponent(lblTitle, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(116))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -259,31 +274,31 @@ public class AddNewItemFrame extends JFrame {
 						.addComponent(NewColorCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(32)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(CancelBtn, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-						.addComponent(AddItemBtn, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+						.addComponent(AddItemBtn, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+						.addComponent(CancelBtn, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
 	
 	//Add new ItemInDB
-	private void AddNewItem(int Id, double Price, int InStock) {
-		ctrl.AddNewItem(Id, NewSizeCB.getSelectedItem().toString(),Price, NewTypeCB.getSelectedItem().toString() ,InStock , NewColorCB.getSelectedItem().toString());
-	}
-	
-	//checks if id,price and instock are valid
-	private boolean InputCheck(JFormattedTextField NewIdTF, JFormattedTextField NewPriceTF, JFormattedTextField NewInStockTF) {
-		if(NewIdTF.getValue()==null || NewPriceTF.getValue()==null || NewInStockTF.getValue()==null) {
-			return false;
-		}else
-			return true;
-	}
-	
-	//check if an item id already exist
-	private boolean CheckItemId(int Id) {
-		if(ctrl.CheckItemId(Id)==true) {
-			return true;
-		}
-		else return false;
-	}
+//	private void AddNewItem(int Id, double Price, int InStock) {
+//		ctrl.AddNewItem(Id, NewSizeCB.getSelectedItem().toString(),Price, NewTypeCB.getSelectedItem().toString() ,InStock , NewColorCB.getSelectedItem().toString());
+//	}
+//	
+//	//checks if id,price and instock are valid
+//	private boolean InputCheck(JFormattedTextField NewIdTF, JFormattedTextField NewPriceTF, JFormattedTextField NewInStockTF) {
+//		if(NewIdTF.getValue()==null || NewPriceTF.getValue()==null || NewInStockTF.getValue()==null) {
+//			return false;
+//		}else
+//			return true;
+//	}
+//	
+//	//check if an item id already exist
+//	private boolean CheckItemId(int Id) {
+//		if(ctrl.CheckItemId(Id)==true) {
+//			return true;
+//		}
+//		else return false;
+//	}
 }

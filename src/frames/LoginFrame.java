@@ -36,11 +36,7 @@ public class LoginFrame extends JFrame {
 	private JTextField UsernameTextField;
 	private JPasswordField PasswordField;
 	private Controller ctrl;
-	private RegisterNewUserFrame regFrame;
 
-	/**
-	 * Create the frame.
-	 */
 	public LoginFrame(Controller control) {
 		ctrl = control;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -189,7 +185,9 @@ public class LoginFrame extends JFrame {
 			PasswordField.setText("");
 		}else
 			if((UsernameTextField.getText().length()>0 || PasswordField.getText().length()>0)) {
-				ctrl.LoginCheck(UsernameTextField.getText(),PasswordField.getText());
+				ctrl.Login(UsernameTextField.getText(),PasswordField.getText());
+				UsernameTextField.setText("");
+				PasswordField.setText("");
 			}
 	}
 	

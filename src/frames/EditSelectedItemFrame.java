@@ -38,7 +38,7 @@ public class EditSelectedItemFrame extends JFrame {
 	private JComboBox<String> NewTypeCB;
 	private JComboBox<String> NewColorCB;
 	private JLabel lblTitle;
-	private JButton AddItemBtn;
+	private JButton EditItemBtn;
 	private JButton CancelBtn;
 	private JLabel lblInStock;
 	private JFormattedTextField NewInStockTF;
@@ -86,7 +86,7 @@ public class EditSelectedItemFrame extends JFrame {
 		DoubleFormatter.setValueClass(Double.class);
 		Doubleformat.setMinimumFractionDigits(2);
 		Doubleformat.setMaximumFractionDigits(2);
-		DoubleFormatter.setAllowsInvalid(true);
+		DoubleFormatter.setAllowsInvalid(false);
 		DoubleFormatter.setCommitsOnValidEdit(true);
 		Doubleformat.setRoundingMode(RoundingMode.HALF_UP);
 		
@@ -141,14 +141,14 @@ public class EditSelectedItemFrame extends JFrame {
 		lblColour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblColour.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
-		lblTitle = new JLabel("Edit ItemInDB");
+		lblTitle = new JLabel("Edit Item");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
-		lblTitle.setToolTipText("Edit the selected ItemInDB");
+		lblTitle.setToolTipText("Edit the selected Item");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		AddItemBtn = new JButton("Edit ItemInDB");
-		AddItemBtn.addActionListener(new ActionListener() {
+		EditItemBtn = new JButton("Edit Item");
+		EditItemBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (check() == true) {
 					editSelectedItem();
@@ -173,7 +173,7 @@ public class EditSelectedItemFrame extends JFrame {
 					}
 				}return true;
 			}
-			//checks for black spaces, pretty much useless
+			//checks for blank spaces, pretty much useless
 			private boolean inputCheck() {
 				if(NewIdTF.getValue()==null || NewPriceTF.getValue()==null || NewInStockTF.getValue()==null) { 
 					JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
@@ -193,7 +193,7 @@ public class EditSelectedItemFrame extends JFrame {
 				SelectedItem = new Item();
 			}
 		});
-		AddItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		EditItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		CancelBtn = new JButton("Cancel");
 		CancelBtn.addActionListener(new ActionListener() {
@@ -282,7 +282,7 @@ public class EditSelectedItemFrame extends JFrame {
 							.addGap(68)
 							.addComponent(CancelBtn, GroupLayout.PREFERRED_SIZE, 147, Short.MAX_VALUE)
 							.addGap(66)
-							.addComponent(AddItemBtn, GroupLayout.PREFERRED_SIZE, 166, Short.MAX_VALUE))
+							.addComponent(EditItemBtn, GroupLayout.PREFERRED_SIZE, 166, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(36)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -338,7 +338,7 @@ public class EditSelectedItemFrame extends JFrame {
 					.addGap(32)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(CancelBtn, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-						.addComponent(AddItemBtn, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+						.addComponent(EditItemBtn, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);

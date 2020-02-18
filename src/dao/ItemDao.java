@@ -21,20 +21,6 @@ public class ItemDao {
 		};
 	
 		
-//	//load jtable in main frame OLD IMPLEMENTATION
-//	public void LoadTable() {
-//		try {
-//			Statement st = connection.createStatement();
-//			ResultSet rs = st.executeQuery("select * from item");
-//			ctrl.ctrlItemTable.setModel(DbUtils.resultSetToTableModel(rs));
-////			return daoItemTable;
-//		}catch (SQLException e2) {
-//				e2.printStackTrace();		
-////				return null;
-//		}
-//	}
-		
-		
 		//Loads the ArrayList used for the jtable in mainframe
 		public void getWarehousefromDB() {
 			try {
@@ -178,6 +164,18 @@ public class ItemDao {
 		}
 	}
 	
+	
+	//remove an item from database
+	public void removeFromWarehouse(int id) {
+		PreparedStatement st;
+		try {
+			st = connection.prepareStatement("delete from item where id = ?");
+			st.setInt(1, id);
+			ResultSet rs = st.executeQuery();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	

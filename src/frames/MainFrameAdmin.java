@@ -110,37 +110,73 @@ public class MainFrameAdmin extends JFrame {
 			}
 		});
 		AddItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		
+		JButton LogOutBtn = new JButton("Log Out");
+		LogOutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ctrl.LogOut();
+			}
+		});
+		LogOutBtn.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		
+		JButton Remove = new JButton("Remove");
+		Remove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = ItemTable.getSelectedRow();
+				if(i == -1) {
+					JOptionPane.showMessageDialog(new JFrame(), "Please select a line from table","ERROR", JOptionPane.ERROR_MESSAGE);	
+				}else {
+					if(JOptionPane.showConfirmDialog(null,"Do you want to proceed?", "Select an Option...",JOptionPane.YES_NO_OPTION)==0) {
+						ctrl.removeFromWarehouse((int) ItemTable.getValueAt(ItemTable.getSelectedRow(), 0));
+					}else {
+						//does nothing
+					}
+				
+				}
+			}
+		});
+		Remove.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		GroupLayout gl_MainPanel = new GroupLayout(MainPanel);
 		gl_MainPanel.setHorizontalGroup(
 			gl_MainPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_MainPanel.createSequentialGroup()
 					.addGap(29)
-					.addComponent(ItemscrollPane, GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
+					.addComponent(ItemscrollPane, GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
 					.addGroup(gl_MainPanel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_MainPanel.createSequentialGroup()
-							.addGap(77)
-							.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(EditSelectedBtn, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-								.addComponent(SearchRefreshBtn, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)))
+						.addGroup(gl_MainPanel.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_MainPanel.createSequentialGroup()
+								.addGap(77)
+								.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
+									.addComponent(EditSelectedBtn, GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+									.addComponent(SearchRefreshBtn, GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)))
+							.addGroup(gl_MainPanel.createSequentialGroup()
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
+									.addComponent(LogOutBtn, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
+									.addComponent(AddItemBtn, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(gl_MainPanel.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(AddItemBtn, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(Remove, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_MainPanel.setVerticalGroup(
 			gl_MainPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_MainPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_MainPanel.createSequentialGroup()
+					.addGroup(gl_MainPanel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_MainPanel.createSequentialGroup()
 							.addComponent(SearchRefreshBtn, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
 							.addGap(18)
 							.addComponent(EditSelectedBtn, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(AddItemBtn, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-							.addGap(553))
+							.addGap(18)
+							.addComponent(Remove, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+							.addGap(379)
+							.addComponent(LogOutBtn, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+							.addGap(41))
 						.addGroup(gl_MainPanel.createSequentialGroup()
-							.addComponent(ItemscrollPane, GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
+							.addComponent(ItemscrollPane, GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)
 							.addGap(28))))
 		);
 		

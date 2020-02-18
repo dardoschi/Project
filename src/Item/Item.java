@@ -111,8 +111,21 @@ public class Item {
 		this.InStock--;
 	}
 	
+	public void inCartMinusOne() {
+		this.InCart--;
+	}
 	
+	public void inStockPlusOne() {
+		this.InStock++;
+	}
 	
+	public void zeroInCart() {
+		this.setInCart(0);
+	}
+	
+	public void inStockAdd(int amount) {
+		this.InStock = InStock + amount;
+	}
 	
 	
 	

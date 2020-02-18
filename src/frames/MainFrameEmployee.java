@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import Item.Item;
 import TableModels.ItemInDBTableModel;
 import main.Controller;
+import java.awt.Color;
 
 public class MainFrameEmployee extends JFrame {
 
@@ -47,6 +48,7 @@ public class MainFrameEmployee extends JFrame {
 		//creates an istance of the custom table model with the controller arraylist(warehouse)
 		TModel = new ItemInDBTableModel(c.Warehouse);
 		ItemTable = new JTable(TModel);
+		ItemTable.setBackground(Color.WHITE);
 		
 		
 		//inserts the table into the scrollpanel
@@ -88,16 +90,25 @@ public class MainFrameEmployee extends JFrame {
 			}
 		});
 		OpenCartBtn.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		
+		JButton LogOutBtn = new JButton("Log Out");
+		LogOutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ctrl.LogOut();
+			}
+		});
+		LogOutBtn.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		GroupLayout gl_MainPanel = new GroupLayout(MainPanel);
 		gl_MainPanel.setHorizontalGroup(
 			gl_MainPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_MainPanel.createSequentialGroup()
 					.addGap(29)
-					.addComponent(ItemscrollPane, GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+					.addComponent(ItemscrollPane, GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
 					.addGap(70)
 					.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(AddToCartBtn, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
-						.addComponent(OpenCartBtn, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE))
+						.addComponent(OpenCartBtn, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)
+						.addComponent(LogOutBtn, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		gl_MainPanel.setVerticalGroup(
@@ -109,10 +120,10 @@ public class MainFrameEmployee extends JFrame {
 							.addComponent(AddToCartBtn, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(OpenCartBtn, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(gl_MainPanel.createSequentialGroup()
-							.addComponent(ItemscrollPane, GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)
-							.addGap(28))))
+							.addPreferredGap(ComponentPlacement.RELATED, 545, Short.MAX_VALUE)
+							.addComponent(LogOutBtn, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+						.addComponent(ItemscrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE))
+					.addGap(28))
 		);
 		
 
