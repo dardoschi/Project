@@ -170,13 +170,20 @@ public class AddNewItemFrame extends JFrame {
 //					}
 				if(inputCheck()==true) {
 					if(ctrl.CheckItemId((int) NewIdTF.getValue())==true) {
-						ctrl.AddNewItem((int) NewIdTF.getValue(),NewSizeCB.getSelectedItem().toString(), (int) NewPriceTF.getValue(), NewTypeCB.getSelectedItem().toString(),(int) NewInStockTF.getValue(), NewColorCB.getSelectedItem().toString());
+						ctrl.AddNewItem((int) NewIdTF.getValue(),NewSizeCB.getSelectedItem().toString(), (double) NewPriceTF.getValue(), NewTypeCB.getSelectedItem().toString(),(int) NewInStockTF.getValue(), NewColorCB.getSelectedItem().toString());
+						resetFrame();
 					}else
 						JOptionPane.showMessageDialog(new JFrame(), "Please change id","ERROR", JOptionPane.ERROR_MESSAGE);
 					}else {
 					JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 				}
+			private void resetFrame() {
+				NewIdTF.setValue(null);
+				NewPriceTF.setValue(null);
+				NewInStockTF.setValue(null);
+				setVisible(false);	
+			}
 			//checks for blank spaces, true if ok
 			private boolean inputCheck() {
 				if(NewIdTF.getValue()==null || NewPriceTF.getValue()==null || NewInStockTF.getValue()==null) { 
