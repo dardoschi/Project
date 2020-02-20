@@ -12,7 +12,7 @@ import main.Controller;
 	
 		    private String[] columnNames = {"Id","Size","Price","Type","Colour","InStock"};
 		    private Class<?>[] types = {Integer.class, String.class, Double.class, String.class, String.class, Integer.class};
-//		    new Class[]
+
 		    //needed as dummy for the constructor(Warehouse arrayList of the controller copied here)
 			public ArrayList<Item> Warehouse ;
 			
@@ -43,13 +43,6 @@ import main.Controller;
 		    @Override
 		    public int getRowCount(){
 		    	return Warehouse.size();
-//		    	int size;
-//		    	if(Warehouse == null) {
-//		    		size = 0;
-//		    	}else {
-//		    		size = Warehouse.size();
-//		    	}
-//		        return size;
 		    }
 		    
 		    @Override

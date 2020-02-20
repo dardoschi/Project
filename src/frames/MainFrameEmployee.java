@@ -1,27 +1,19 @@
 package frames;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-
-import org.w3c.dom.Text;
 
 import Item.Item;
 import TableModels.ItemInDBTableModel;
@@ -35,22 +27,21 @@ import java.awt.Toolkit;
 
 public class MainFrameEmployee extends JFrame {
 
-	private JPanel contentPane;
 	private Controller ctrl;
-	public ItemInDBTableModel TModel;
 	private JTable ItemTable;
 	private JScrollPane ItemscrollPane;
 	private JButton OpenCartBtn;
 	private Item SelectedItem;
 	private Item CartItem;        
-
+	public ItemInDBTableModel TModel;
+	
 	public MainFrameEmployee(Controller c) {
 		setTitle("O'Style");
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrameEmployee.class.getResource("/images/logo_size_invert.jpg")));
 		ctrl = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1399, 997);
+		setBounds(100, 100, 1385, 825);
 		setLocationRelativeTo(null);
 		JPanel MainPanel = new JPanel();
 		MainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,7 +68,7 @@ public class MainFrameEmployee extends JFrame {
 		ItemscrollPane.setBackground(new Color(0, 0, 205));
 		ItemscrollPane.setForeground(Color.WHITE);
 		ItemscrollPane.setBorder(null);
-		ItemscrollPane.setBounds(0, 0, 889, 959);
+		ItemscrollPane.setBounds(0, 0, 887, 801);
 		ItemscrollPane.getViewport().setBackground(new Color(44, 5, 72));
 		ItemscrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
 		
@@ -130,7 +121,7 @@ public class MainFrameEmployee extends JFrame {
 		
 		JButton LogOutBtn = new JButton("Log Out");
 		LogOutBtn.setForeground(Color.BLACK);
-		LogOutBtn.setBounds(958, 806, 400, 100);
+		LogOutBtn.setBounds(958, 673, 400, 100);
 		LogOutBtn.setBackground(new Color(121, 204, 224));
 		LogOutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -152,7 +143,7 @@ public class MainFrameEmployee extends JFrame {
 		lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 34));
 		lblNewLabel.setIcon(new ImageIcon(MainFrameEmployee.class.getResource("/images/Main Admin Frame.png")));
-		lblNewLabel.setBounds(0, 0, 1387, 965);
+		lblNewLabel.setBounds(0, 0, 1383, 801);
 		MainPanel.add(lblNewLabel);
 	}
 }
