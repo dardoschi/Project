@@ -55,9 +55,7 @@ public class Controller {
 		RegisterFrame = new RegisterNewUserFrame(this);
 		AddFrame = new AddNewItemFrame(this);
 		CFrame = new CartFrame(this);
-//		LoginFrame.setVisible(true);
-		MAdminFrame.setVisible(true);
-//		MEmployeeFrame.setVisible(true);
+		LoginFrame.setVisible(true);
 	}
 	
 	
@@ -273,19 +271,6 @@ public class Controller {
 		IDao.removeFromWarehouse(id);
 		ReloadDBTable();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }	
 
