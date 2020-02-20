@@ -6,7 +6,7 @@ import main.Controller;
 //get connection returns a Connection object		 how to use:Connection connection = ConnectionFactory.getConnection();
 public class ConnectionFactory {
 	
-	Controller ctrl;
+	private Controller ctrl;
 	public static final String url = "jdbc:postgresql://localhost/ProjectDB";
     public static final String username = "postgres";
     public static final String password = "password";

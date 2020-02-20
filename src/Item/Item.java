@@ -25,15 +25,7 @@ public class Item {
 		this.InCart = 1;               //?????????
 		
 	}
-//	//constructor with all fields
-//	public Item(int id, String size, double price, String type, int inStock, String colour) {
-//		Id = id;
-//		Size = size;
-//		Price = price;
-//		Type = type;
-//		InStock = inStock;
-//		Colour = colour;
-//	}
+
 	//getters and setters
 	public int getId() {
 		return Id;
@@ -126,11 +118,4 @@ public class Item {
 	public void inStockAdd(int amount) {
 		this.InStock = InStock + amount;
 	}
-	
-	
-	
-	
-	
-	
-
 }

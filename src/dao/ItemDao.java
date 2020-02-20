@@ -6,14 +6,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Item.Item;
-import frames.MainFrameAdmin;
 import main.Controller;
 
 public class ItemDao {
 	
 	private Controller ctrl;
 	private Connection connection = ConnectionFactory.getConnection();
-	private MainFrameAdmin MFrame;
 	
 	//constructor
 	public ItemDao (Controller Contrl) {

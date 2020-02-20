@@ -1,20 +1,12 @@
 package main;
 
-import java.awt.Component;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import Item.Item;
-import TableModels.ItemInDBTableModel;
-import dao.ConnectionFactory;
+//import dao.ConnectionFactory;
 import frames.AddNewItemFrame;
 import frames.CartFrame;
 import frames.EditSelectedItemFrame;
@@ -27,7 +19,7 @@ import dao.EmployeeDao;
 
 public class Controller {
 	
-	private static ConnectionFactory conn;
+//	private static ConnectionFactory conn;
 	private ItemDao IDao;
 	private EmployeeDao EDao;
 	private LoginFrame LoginFrame;
@@ -37,7 +29,7 @@ public class Controller {
 	private EditSelectedItemFrame EditFrame;
 	private Item selecteditem;
 	private CartFrame CFrame;
-	public AddNewItemFrame AddFrame;
+	private AddNewItemFrame AddFrame;
 	public ArrayList<Item> Warehouse;
 	public ArrayList<Item> Cart;
 	
@@ -45,7 +37,7 @@ public class Controller {
 	public Controller(){
 		Warehouse = new ArrayList<Item>();
 		Cart = new ArrayList<Item>();
-		conn = new ConnectionFactory(this);
+//		conn = new ConnectionFactory(this);
 		IDao = new ItemDao(this);
 		EDao = new EmployeeDao(this);
 		LoginFrame = new LoginFrame(this);
@@ -57,7 +49,6 @@ public class Controller {
 		CFrame = new CartFrame(this);
 		LoginFrame.setVisible(true);
 	}
-	
 	
 	//FUNCTIONS FOR ARRAYLIST
 	public void add(Item i) {
@@ -80,9 +71,6 @@ public class Controller {
 		LoadWarehouseArray();
 		return Warehouse;
 	}
-	
-	
-	
 	
 	//open registernewuser frame from login frame
 	public void RegisterFrameOpen() {
@@ -113,7 +101,6 @@ public class Controller {
 		CFrame.setVisible(true);
 	}
 	
-	
 	public void Login(String Username, String Password) {
 		Employee user = EDao.Login(Username, Password);
 		if(user == null) {
@@ -127,16 +114,13 @@ public class Controller {
 					LoginFrame.setVisible(false);
 			}
 	}
-	
-				
+		
 	public void LogOut() {
 		MAdminFrame.setVisible(false);
 		MEmployeeFrame.setVisible(false);
 		LoginFrame.setVisible(true);
 	}
 		
-	
-	
 	//register a new user
 	public void RegisterUser(String Username, String Password,boolean Admin) {
 		if(EDao.RegisterNewUser(Username, Password,Admin)==true){
@@ -273,7 +257,3 @@ public class Controller {
 	}
 	
 }	
-
-
-
-

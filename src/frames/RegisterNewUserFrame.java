@@ -1,23 +1,15 @@
 package frames;
 
-import java.awt.BorderLayout;
 import main.Controller;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 import java.awt.Color;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -78,31 +70,31 @@ public class RegisterNewUserFrame extends JFrame {
 		contentPane.add(InsertPasswordLabel);
 		InsertPasswordLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		//		cancel button
-				JButton CancelButton = new JButton("Cancel");
-				CancelButton.setBounds(46, 451, 303, 80);
-				contentPane.add(CancelButton);
-				CancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						ctrl.LoginFrameOpen();
-					}
-				});
-				CancelButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+			JButton CancelButton = new JButton("Cancel");
+			CancelButton.setBounds(46, 451, 303, 80);
+			contentPane.add(CancelButton);
+			CancelButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ctrl.LoginFrameOpen();
+				}
+			});
+			CancelButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
 				
 //		confirm button
-				JButton ConfirmButton = new JButton("Confirm");
-				ConfirmButton.setBounds(512, 451, 303, 80);
-				contentPane.add(ConfirmButton);
-				ConfirmButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						Register();
-					}
-				});
-				ConfirmButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+			JButton ConfirmButton = new JButton("Confirm");
+			ConfirmButton.setBounds(512, 451, 303, 80);
+			contentPane.add(ConfirmButton);
+			ConfirmButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Register();
+				}
+			});
+			ConfirmButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
 				
-				JLabel backgroundLbl = new JLabel("");
-				backgroundLbl.setIcon(new ImageIcon(RegisterNewUserFrame.class.getResource("/images/RegisterNewUser Frame.png")));
-				backgroundLbl.setBounds(0, 0, 849, 574);
-				contentPane.add(backgroundLbl);
+			JLabel backgroundLbl = new JLabel("");
+			backgroundLbl.setIcon(new ImageIcon(RegisterNewUserFrame.class.getResource("/images/RegisterNewUser Frame.png")));
+			backgroundLbl.setBounds(0, 0, 849, 574);
+			contentPane.add(backgroundLbl);
 		
 		//Frame becomes visible at the center of the screen
 		setLocationRelativeTo(null);

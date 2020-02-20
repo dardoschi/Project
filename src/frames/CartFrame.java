@@ -1,9 +1,6 @@
 package frames;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -12,7 +9,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import Item.Item;
 import TableModels.ItemInCartTableModel;
-import TableModels.ItemInDBTableModel;
 import main.Controller;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -32,10 +28,10 @@ public class CartFrame extends JFrame {
 	private JPanel contentPane;
 	private Controller ctrl;
 	private JTable CartTable;
-	public ItemInCartTableModel TModel;
 	private Item SelectedItem;
 	private Item CartItem;
 	private JLabel TotalLbl;
+	public ItemInCartTableModel TModel;
 	
 	public CartFrame(Controller c) {
 		setResizable(false);

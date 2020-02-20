@@ -44,13 +44,6 @@ public class ItemInCartTableModel extends AbstractTableModel{
     @Override
     public int getRowCount(){
     	return Cart.size();
-//    	int size;
-//    	if(Warehouse == null) {
-//    		size = 0;
-//    	}else {
-//    		size = Warehouse.size();
-//    	}
-//        return size;
     }
     
     @Override
