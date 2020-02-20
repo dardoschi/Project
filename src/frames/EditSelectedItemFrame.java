@@ -1,7 +1,6 @@
 package frames;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +9,6 @@ import java.awt.event.WindowEvent;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -20,13 +17,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.NumberFormatter;
 
 import Item.Item;
 import main.Controller;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class EditSelectedItemFrame extends JFrame {
 	
@@ -43,8 +41,12 @@ public class EditSelectedItemFrame extends JFrame {
 	private JLabel lblInStock;
 	private JFormattedTextField NewInStockTF;
 	private Item SelectedItem;
+	private JLabel lblNewLabel;
 
 	public EditSelectedItemFrame(Controller c) {
+		setTitle("Edit Item");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(EditSelectedItemFrame.class.getResource("/images/logo_size_invert.jpg")));
+		setResizable(false);
 		ctrl = c;
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 571, 547);
@@ -65,11 +67,14 @@ public class EditSelectedItemFrame extends JFrame {
 		IntFormatter.setCommitsOnValidEdit(true);// committ value on each keystroke instead of focus lost
 		
 		JFormattedTextField NewIdTF = new JFormattedTextField(IntFormatter);
+		NewIdTF.setBounds(214, 81, 270, 31);
 		NewIdTF.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewIdTF.setHorizontalAlignment(SwingConstants.CENTER);
 		NewIdTF.setColumns(10);
 		
 		NewSizeCB = new JComboBox<String>();
+		NewSizeCB.setBackground(new Color(135, 206, 250));
+		NewSizeCB.setBounds(214, 130, 270, 33);
 		((JLabel)NewSizeCB.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		NewSizeCB.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewSizeCB.addItem("XS");
@@ -91,11 +96,14 @@ public class EditSelectedItemFrame extends JFrame {
 		Doubleformat.setRoundingMode(RoundingMode.HALF_UP);
 		
 		NewPriceTF = new JFormattedTextField(DoubleFormatter);
+		NewPriceTF.setBounds(214, 181, 270, 31);
 		NewPriceTF.setHorizontalAlignment(SwingConstants.CENTER);
 		NewPriceTF.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewPriceTF.setColumns(10);
 		
 		NewTypeCB = new JComboBox<String>();
+		NewTypeCB.setBackground(new Color(135, 206, 250));
+		NewTypeCB.setBounds(214, 223, 270, 33);
 		((JLabel)NewTypeCB.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		NewTypeCB.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewTypeCB.addItem("Coat");
@@ -108,6 +116,8 @@ public class EditSelectedItemFrame extends JFrame {
 		NewTypeCB.addItem("Briefcase");
 		
 		NewColorCB = new JComboBox<String>();
+		NewColorCB.setBackground(new Color(135, 206, 250));
+		NewColorCB.setBounds(214, 322, 270, 33);
 		((JLabel)NewColorCB.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		NewColorCB.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewColorCB.addItem("Red");
@@ -122,32 +132,47 @@ public class EditSelectedItemFrame extends JFrame {
 		NewColorCB.addItem("Jeans");
 		
 		JLabel lblID = new JLabel("ID");
+		lblID.setForeground(new Color(135, 206, 235));
+		lblID.setBounds(73, 83, 123, 26);
 		lblID.setHorizontalAlignment(SwingConstants.CENTER);
 		lblID.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		JLabel lblSize = new JLabel("Size");
+		lblSize.setForeground(new Color(135, 206, 235));
+		lblSize.setBounds(73, 133, 123, 26);
 		lblSize.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSize.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		JLabel lblPrice = new JLabel("Price");
+		lblPrice.setForeground(new Color(135, 206, 235));
+		lblPrice.setBounds(73, 183, 123, 26);
 		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPrice.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		JLabel lblType = new JLabel("Type");
+		lblType.setForeground(new Color(135, 206, 235));
+		lblType.setBounds(73, 226, 123, 26);
 		lblType.setHorizontalAlignment(SwingConstants.CENTER);
 		lblType.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		JLabel lblColour = new JLabel("Colour");
+		lblColour.setForeground(new Color(135, 206, 235));
+		lblColour.setBounds(73, 325, 123, 26);
 		lblColour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblColour.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		lblTitle = new JLabel("Edit Item");
+		lblTitle.setForeground(Color.WHITE);
+		lblTitle.setBackground(Color.WHITE);
+		lblTitle.setBounds(121, 0, 336, 76);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		lblTitle.setToolTipText("Edit the selected Item");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
 		EditItemBtn = new JButton("Edit Item");
+		EditItemBtn.setBackground(new Color(135, 206, 250));
+		EditItemBtn.setBounds(313, 386, 160, 93);
 		EditItemBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (check() == true) {
@@ -196,6 +221,8 @@ public class EditSelectedItemFrame extends JFrame {
 		EditItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		CancelBtn = new JButton("Cancel");
+		CancelBtn.setBackground(new Color(135, 206, 250));
+		CancelBtn.setBounds(100, 386, 160, 93);
 		CancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e2) {
 				dispose();
@@ -205,10 +232,13 @@ public class EditSelectedItemFrame extends JFrame {
 		CancelBtn.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		lblInStock = new JLabel("In Stock");
+		lblInStock.setForeground(new Color(135, 206, 235));
+		lblInStock.setBounds(73, 274, 123, 26);
 		lblInStock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInStock.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		NewInStockTF = new JFormattedTextField(IntFormatter);
+		NewInStockTF.setBounds(214, 274, 270, 31);
 		NewInStockTF.setHorizontalAlignment(SwingConstants.CENTER);
 		NewInStockTF.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewInStockTF.setColumns(10);
@@ -272,76 +302,27 @@ public class EditSelectedItemFrame extends JFrame {
 				}
 			}
 	        });
+		contentPane.setLayout(null);
+		contentPane.add(CancelBtn);
+		contentPane.add(EditItemBtn);
+		contentPane.add(lblType);
+		contentPane.add(lblPrice);
+		contentPane.add(lblSize);
+		contentPane.add(lblID);
+		contentPane.add(lblColour);
+		contentPane.add(lblInStock);
+		contentPane.add(NewColorCB);
+		contentPane.add(NewTypeCB);
+		contentPane.add(NewPriceTF);
+		contentPane.add(NewSizeCB);
+		contentPane.add(NewIdTF);
+		contentPane.add(NewInStockTF);
+		contentPane.add(lblTitle);
 		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(68)
-							.addComponent(CancelBtn, GroupLayout.PREFERRED_SIZE, 147, Short.MAX_VALUE)
-							.addGap(66)
-							.addComponent(EditItemBtn, GroupLayout.PREFERRED_SIZE, 166, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(36)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblType, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblPrice, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblSize, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblID, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblColour, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-								.addComponent(lblInStock, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addComponent(NewColorCB, 0, 270, Short.MAX_VALUE)
-									.addComponent(NewTypeCB, 0, 270, Short.MAX_VALUE)
-									.addComponent(NewPriceTF, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-									.addComponent(NewSizeCB, Alignment.TRAILING, 0, 270, Short.MAX_VALUE)
-									.addComponent(NewIdTF, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
-								.addComponent(NewInStockTF, GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))))
-					.addGap(100))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(95)
-					.addComponent(lblTitle, GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-					.addGap(116))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 88, Short.MAX_VALUE)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(NewIdTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblID))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(NewSizeCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSize))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(NewPriceTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPrice))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblType)
-						.addComponent(NewTypeCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblInStock, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-						.addComponent(NewInStockTF, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblColour)
-						.addComponent(NewColorCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(32)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(CancelBtn, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-						.addComponent(EditItemBtn, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		contentPane.setLayout(gl_contentPane);
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(EditSelectedItemFrame.class.getResource("/images/Add-Edit Frame.png")));
+		lblNewLabel.setBounds(0, 0, 567, 520);
+		contentPane.add(lblNewLabel);
 
 	}
 

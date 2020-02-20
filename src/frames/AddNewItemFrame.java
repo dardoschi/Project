@@ -28,6 +28,9 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Toolkit;
 
 public class AddNewItemFrame extends JFrame {
 
@@ -45,9 +48,12 @@ public class AddNewItemFrame extends JFrame {
 	private JFormattedTextField NewInStockTF;
 
 	public AddNewItemFrame(Controller c) {
+		setResizable(false);
+		setTitle("Add a new Item ");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AddNewItemFrame.class.getResource("/images/logo_size_invert.jpg")));
 		ctrl = c;
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 571, 547);
+		setBounds(100, 100, 575, 541);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -65,11 +71,14 @@ public class AddNewItemFrame extends JFrame {
 		IntFormatter.setCommitsOnValidEdit(true);// committ value on each keystroke instead of focus lost
 		
 		JFormattedTextField NewIdTF = new JFormattedTextField(IntFormatter);
+		NewIdTF.setBounds(198, 83, 272, 31);
 		NewIdTF.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewIdTF.setHorizontalAlignment(SwingConstants.CENTER);
 		NewIdTF.setColumns(10);
 		
 		NewSizeCB = new JComboBox<String>();
+		NewSizeCB.setBackground(new Color(135, 206, 250));
+		NewSizeCB.setBounds(198, 132, 272, 33);
 		((JLabel)NewSizeCB.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		NewSizeCB.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewSizeCB.addItem("XS");
@@ -91,11 +100,14 @@ public class AddNewItemFrame extends JFrame {
 		Doubleformat.setRoundingMode(RoundingMode.HALF_UP);
 		
 		NewPriceTF = new JFormattedTextField(DoubleFormatter);
+		NewPriceTF.setBounds(198, 183, 272, 31);
 		NewPriceTF.setHorizontalAlignment(SwingConstants.CENTER);
 		NewPriceTF.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewPriceTF.setColumns(10);
 		
 		NewTypeCB = new JComboBox<String>();
+		NewTypeCB.setBackground(new Color(135, 206, 250));
+		NewTypeCB.setBounds(198, 232, 272, 33);
 		((JLabel)NewTypeCB.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		NewTypeCB.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewTypeCB.addItem("Coat");
@@ -108,6 +120,8 @@ public class AddNewItemFrame extends JFrame {
 		NewTypeCB.addItem("Briefcase");
 		
 		NewColorCB = new JComboBox<String>();
+		NewColorCB.setBackground(new Color(135, 206, 250));
+		NewColorCB.setBounds(198, 336, 272, 33);
 		((JLabel)NewColorCB.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 		NewColorCB.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewColorCB.addItem("Red");
@@ -122,52 +136,48 @@ public class AddNewItemFrame extends JFrame {
 		NewColorCB.addItem("Jeans");
 		
 		JLabel lblID = new JLabel("ID");
+		lblID.setForeground(new Color(135, 206, 250));
+		lblID.setBounds(54, 85, 126, 26);
 		lblID.setHorizontalAlignment(SwingConstants.CENTER);
 		lblID.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		JLabel lblSize = new JLabel("Size");
+		lblSize.setForeground(new Color(135, 206, 250));
+		lblSize.setBounds(54, 135, 126, 26);
 		lblSize.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSize.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		JLabel lblPrice = new JLabel("Price");
+		lblPrice.setForeground(new Color(135, 206, 250));
+		lblPrice.setBounds(54, 185, 126, 26);
 		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPrice.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		JLabel lblType = new JLabel("Type");
+		lblType.setForeground(new Color(135, 206, 250));
+		lblType.setBounds(54, 235, 126, 26);
 		lblType.setHorizontalAlignment(SwingConstants.CENTER);
 		lblType.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		JLabel lblColour = new JLabel("Colour");
+		lblColour.setForeground(new Color(135, 206, 250));
+		lblColour.setBounds(54, 339, 126, 26);
 		lblColour.setHorizontalAlignment(SwingConstants.CENTER);
 		lblColour.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		lblTitle = new JLabel("Add New Item");
+		lblTitle.setBounds(175, 16, 267, 56);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setToolTipText("Add New ItemInDB");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
 		AddItemBtn = new JButton("Add Item");
+		AddItemBtn.setBackground(new Color(135, 206, 250));
+		AddItemBtn.setBounds(310, 393, 160, 93);
 		AddItemBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//					if((InputCheck(NewIdTF,NewPriceTF,NewInStockTF)==true)){
-//						int Id = (int)NewIdTF.getValue();
-//						if(CheckItemId(Id)==true) {
-//							// values of the JFormattedTextField
-//							double Price = (double)NewPriceTF.getValue();
-//							int InStock = (int)NewInStockTF.getValue();
-//							AddNewItem(Id, Price, InStock);
-//							NewIdTF.setValue(null);
-//							NewPriceTF.setValue(null);
-//							NewInStockTF.setValue(null);
-//							setVisible(false);
-//						}
-//						else 
-//							JOptionPane.showMessageDialog(new JFrame(), "Please change id","ERROR", JOptionPane.ERROR_MESSAGE);
-//					}
-//					else {
-//						JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
-//					}
 				if(inputCheck()==true) {
 					if(ctrl.CheckItemId((int) NewIdTF.getValue())==true) {
 						ctrl.AddNewItem((int) NewIdTF.getValue(),NewSizeCB.getSelectedItem().toString(), (double) NewPriceTF.getValue(), NewTypeCB.getSelectedItem().toString(),(int) NewInStockTF.getValue(), NewColorCB.getSelectedItem().toString());
@@ -187,7 +197,6 @@ public class AddNewItemFrame extends JFrame {
 			//checks for blank spaces, true if ok
 			private boolean inputCheck() {
 				if(NewIdTF.getValue()==null || NewPriceTF.getValue()==null || NewInStockTF.getValue()==null) { 
-					JOptionPane.showMessageDialog(new JFrame(), "Please insert valid values","ERROR", JOptionPane.ERROR_MESSAGE);
 					return false;
 				}
 				return true;
@@ -196,6 +205,8 @@ public class AddNewItemFrame extends JFrame {
 		AddItemBtn.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		CancelBtn = new JButton("Cancel");
+		CancelBtn.setBackground(new Color(135, 206, 250));
+		CancelBtn.setBounds(102, 393, 160, 93);
 		CancelBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e2) {
 				setVisible(false);
@@ -208,104 +219,36 @@ public class AddNewItemFrame extends JFrame {
 		CancelBtn.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		lblInStock = new JLabel("In Stock");
+		lblInStock.setForeground(new Color(135, 206, 250));
+		lblInStock.setBounds(54, 282, 126, 26);
 		lblInStock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInStock.setFont(new Font("Dialog", Font.PLAIN, 20));
 		
 		NewInStockTF = new JFormattedTextField(IntFormatter);
+		NewInStockTF.setBounds(198, 282, 272, 31);
 		NewInStockTF.setHorizontalAlignment(SwingConstants.CENTER);
 		NewInStockTF.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		NewInStockTF.setColumns(10);
+		contentPane.setLayout(null);
+		contentPane.add(CancelBtn);
+		contentPane.add(AddItemBtn);
+		contentPane.add(lblType);
+		contentPane.add(lblPrice);
+		contentPane.add(lblSize);
+		contentPane.add(lblID);
+		contentPane.add(lblColour);
+		contentPane.add(lblInStock);
+		contentPane.add(NewColorCB);
+		contentPane.add(NewTypeCB);
+		contentPane.add(NewPriceTF);
+		contentPane.add(NewSizeCB);
+		contentPane.add(NewIdTF);
+		contentPane.add(NewInStockTF);
+		contentPane.add(lblTitle);
 		
-		
-		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(68)
-							.addComponent(CancelBtn, GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE)
-							.addGap(58)
-							.addComponent(AddItemBtn, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(36)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblType, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-								.addComponent(lblPrice, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-								.addComponent(lblSize, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-								.addComponent(lblID, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-								.addComponent(lblColour, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-								.addComponent(lblInStock, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(NewColorCB, 0, 272, Short.MAX_VALUE)
-								.addComponent(NewTypeCB, 0, 272, Short.MAX_VALUE)
-								.addComponent(NewPriceTF, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-								.addComponent(NewSizeCB, Alignment.TRAILING, 0, 272, Short.MAX_VALUE)
-								.addComponent(NewIdTF, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-								.addComponent(NewInStockTF, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))))
-					.addGap(100))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(95)
-					.addComponent(lblTitle, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(116))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 88, Short.MAX_VALUE)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(NewIdTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblID))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(NewSizeCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSize))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(NewPriceTF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPrice))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblType)
-						.addComponent(NewTypeCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblInStock, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-						.addComponent(NewInStockTF, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblColour)
-						.addComponent(NewColorCB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(32)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(AddItemBtn, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-						.addComponent(CancelBtn, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		contentPane.setLayout(gl_contentPane);
+		JLabel backgroundLbl = new JLabel("");
+		backgroundLbl.setIcon(new ImageIcon(AddNewItemFrame.class.getResource("/images/Add-Edit Frame.png")));
+		backgroundLbl.setBounds(0, 0, 571, 520);
+		contentPane.add(backgroundLbl);
 	}
-	
-	//Add new ItemInDB
-//	private void AddNewItem(int Id, double Price, int InStock) {
-//		ctrl.AddNewItem(Id, NewSizeCB.getSelectedItem().toString(),Price, NewTypeCB.getSelectedItem().toString() ,InStock , NewColorCB.getSelectedItem().toString());
-//	}
-//	
-//	//checks if id,price and instock are valid
-//	private boolean InputCheck(JFormattedTextField NewIdTF, JFormattedTextField NewPriceTF, JFormattedTextField NewInStockTF) {
-//		if(NewIdTF.getValue()==null || NewPriceTF.getValue()==null || NewInStockTF.getValue()==null) {
-//			return false;
-//		}else
-//			return true;
-//	}
-//	
-//	//check if an item id already exist
-//	private boolean CheckItemId(int Id) {
-//		if(ctrl.CheckItemId(Id)==true) {
-//			return true;
-//		}
-//		else return false;
-//	}
 }
