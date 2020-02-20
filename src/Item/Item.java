@@ -22,7 +22,7 @@ public class Item {
 		this.Type = selected.getType();
 		this.Colour = selected.getColour();
 		this.InStock = selected.getInStock();
-		this.InCart = 1;               //?????????
+		this.InCart = 1;
 		
 	}
 

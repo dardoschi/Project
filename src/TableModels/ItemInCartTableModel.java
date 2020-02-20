@@ -8,18 +8,12 @@ import Item.Item;
 import main.Controller;
 
 public class ItemInCartTableModel extends AbstractTableModel{
-	private Controller c;
 	
     private String[] columnNames = { "Id","Size","Price","Type","Colour","In Cart"}; 
     private Class<?>[] types = new Class[]{Integer.class, String.class, Double.class, String.class, String.class, Integer.class};
     
     //needed as dummy for the constructor(Warehouse arrayList of the controller copied here)
 	public ArrayList<Item> Cart ;
-	
-	public ItemInCartTableModel(Controller ctrl) {
-		c = ctrl;
-	}
-	
 	
     public ItemInCartTableModel (ArrayList<Item> Cart){
         this.Cart = Cart;

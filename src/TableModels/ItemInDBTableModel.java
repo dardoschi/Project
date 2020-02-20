@@ -8,17 +8,12 @@ import Item.Item;
 import main.Controller;
 //**//to reload table, reload controller arraylist and call firetabledatachanged on the ItemInDBTableModel variable//**//
 	public class ItemInDBTableModel extends AbstractTableModel {
-			private Controller c;
 	
 		    private String[] columnNames = {"Id","Size","Price","Type","Colour","InStock"};
 		    private Class<?>[] types = {Integer.class, String.class, Double.class, String.class, String.class, Integer.class};
 
 		    //needed as dummy for the constructor(Warehouse arrayList of the controller copied here)
 			public ArrayList<Item> Warehouse ;
-			
-			public ItemInDBTableModel(Controller ctrl) {
-				c = ctrl;
-			}
 			
 		    public ItemInDBTableModel (ArrayList<Item> CWarehouse){
 		        this.Warehouse = CWarehouse;
