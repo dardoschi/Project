@@ -10,16 +10,15 @@ import main.Controller;
 	public class ItemInDBTableModel extends AbstractTableModel {
 			private Controller c;
 	
-		    private String[] columnNames = { "Id","Size","Price","Type","Colour","InStock"}; 
-		    private Class<?>[] types = new Class[]{Integer.class, String.class, Double.class, String.class, String.class, Integer.class};
-		    
+		    private String[] columnNames = {"Id","Size","Price","Type","Colour","InStock"};
+		    private Class<?>[] types = {Integer.class, String.class, Double.class, String.class, String.class, Integer.class};
+//		    new Class[]
 		    //needed as dummy for the constructor(Warehouse arrayList of the controller copied here)
 			public ArrayList<Item> Warehouse ;
 			
 			public ItemInDBTableModel(Controller ctrl) {
 				c = ctrl;
 			}
-			
 			
 		    public ItemInDBTableModel (ArrayList<Item> CWarehouse){
 		        this.Warehouse = CWarehouse;

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -20,10 +21,17 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import org.w3c.dom.Text;
+
 import Item.Item;
 import TableModels.ItemInDBTableModel;
 import main.Controller;
 import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class MainFrameEmployee extends JFrame {
 
@@ -34,12 +42,15 @@ public class MainFrameEmployee extends JFrame {
 	private JScrollPane ItemscrollPane;
 	private JButton OpenCartBtn;
 	private Item SelectedItem;
-	private Item CartItem;            //non so se serve, per ora no
+	private Item CartItem;        
 
 	public MainFrameEmployee(Controller c) {
+		setTitle("O'Style");
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrameEmployee.class.getResource("/images/logo_size_invert.jpg")));
 		ctrl = c;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1083, 805);
+		setBounds(100, 100, 1399, 997);
 		setLocationRelativeTo(null);
 		JPanel MainPanel = new JPanel();
 		MainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,12 +59,30 @@ public class MainFrameEmployee extends JFrame {
 		//creates an istance of the custom table model with the controller arraylist(warehouse)
 		TModel = new ItemInDBTableModel(c.Warehouse);
 		ItemTable = new JTable(TModel);
-		ItemTable.setBackground(Color.WHITE);
+		ItemTable.setFillsViewportHeight(true);
+		ItemTable.setSelectionForeground(new Color(255, 255, 255));
+		ItemTable.setSelectionBackground(new Color(72, 61, 139));
+		ItemTable.setFont(new Font("SansSerif", Font.PLAIN, 22));
+		ItemTable.setForeground(new Color(255, 255, 255));
+		ItemTable.setShowGrid(false);
+		ItemTable.setShowHorizontalLines(true);
+		ItemTable.setBorder(null);
+		ItemTable.setBackground(new Color(44, 5, 72));
+		
 		
 		
 		//inserts the table into the scrollpanel
 		ItemscrollPane = new JScrollPane(ItemTable);
-	
+		ItemscrollPane.setViewportBorder(null);
+		ItemscrollPane.setBackground(new Color(0, 0, 205));
+		ItemscrollPane.setForeground(Color.WHITE);
+		ItemscrollPane.setBorder(null);
+		ItemscrollPane.setBounds(0, 0, 889, 959);
+		ItemscrollPane.getViewport().setBackground(new Color(44, 5, 72));
+		ItemscrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
+		
+		((DefaultTableCellRenderer)ItemTable.getTableHeader().getDefaultRenderer())
+	    .setHorizontalAlignment(JLabel.CENTER);
 		
 		//text centered in table
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -65,9 +94,14 @@ public class MainFrameEmployee extends JFrame {
 		ItemTable.setAutoCreateRowSorter(true);
 		ItemTable.getRowSorter().toggleSortOrder(0);
 		ItemTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+		ItemTable.setRowHeight(35);
+		
+		
 		
 		JButton AddToCartBtn = new JButton("Add To Cart");
+		AddToCartBtn.setForeground(Color.BLACK);
+		AddToCartBtn.setBounds(958, 21, 400, 100);
+		AddToCartBtn.setBackground(new Color(121, 204, 224));
 		AddToCartBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int i = ItemTable.getSelectedRow();
@@ -81,54 +115,44 @@ public class MainFrameEmployee extends JFrame {
 				}
 			}
 		});
-		AddToCartBtn.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		AddToCartBtn.setFont(new Font("Dialog", Font.PLAIN, 34));
 		
 		OpenCartBtn = new JButton("Open Cart");
+		OpenCartBtn.setForeground(Color.BLACK);
+		OpenCartBtn.setBounds(958, 152, 400, 100);
+		OpenCartBtn.setBackground(new Color(121, 204, 224));
 		OpenCartBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ctrl.CartFrameOpen();
 			}
 		});
-		OpenCartBtn.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		OpenCartBtn.setFont(new Font("Dialog", Font.PLAIN, 34));
 		
 		JButton LogOutBtn = new JButton("Log Out");
+		LogOutBtn.setForeground(Color.BLACK);
+		LogOutBtn.setBounds(958, 806, 400, 100);
+		LogOutBtn.setBackground(new Color(121, 204, 224));
 		LogOutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ctrl.LogOut();
 			}
 		});
-		LogOutBtn.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		GroupLayout gl_MainPanel = new GroupLayout(MainPanel);
-		gl_MainPanel.setHorizontalGroup(
-			gl_MainPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_MainPanel.createSequentialGroup()
-					.addGap(29)
-					.addComponent(ItemscrollPane, GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
-					.addGap(70)
-					.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(AddToCartBtn, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE)
-						.addComponent(OpenCartBtn, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)
-						.addComponent(LogOutBtn, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
-		gl_MainPanel.setVerticalGroup(
-			gl_MainPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_MainPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_MainPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_MainPanel.createSequentialGroup()
-							.addComponent(AddToCartBtn, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(OpenCartBtn, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 545, Short.MAX_VALUE)
-							.addComponent(LogOutBtn, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
-						.addComponent(ItemscrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE))
-					.addGap(28))
-		);
+		LogOutBtn.setFont(new Font("Dialog", Font.PLAIN, 34));
+		MainPanel.setLayout(null);
 		
 
 		
 		ItemscrollPane.setViewportView(ItemTable);
-		MainPanel.setLayout(gl_MainPanel);
+		MainPanel.add(ItemscrollPane);
+		MainPanel.add(AddToCartBtn);
+		MainPanel.add(OpenCartBtn);
+		MainPanel.add(LogOutBtn);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setForeground(Color.BLACK);
+		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 34));
+		lblNewLabel.setIcon(new ImageIcon(MainFrameEmployee.class.getResource("/images/Main Admin Frame.png")));
+		lblNewLabel.setBounds(0, 0, 1387, 965);
+		MainPanel.add(lblNewLabel);
 	}
 }
