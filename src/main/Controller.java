@@ -97,8 +97,11 @@ public class Controller {
 	
 	//open CartFrame
 	public void CartFrameOpen() {
-		CFrame = new CartFrame(this);
-		CFrame.setVisible(true);
+		if(CFrame != null) {
+			CFrame.setVisible(true);
+		}else
+			CFrame = new CartFrame(this);
+			CFrame.setVisible(true);
 	}
 	
 	public void Login(String Username, String Password) {
