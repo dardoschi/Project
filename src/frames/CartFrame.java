@@ -99,16 +99,20 @@ public class CartFrame extends JFrame {
 		contentPane.add(EmptyCartBtn);
 		
 		JButton BuyBtn = new JButton("Buy");
-		BuyBtn.setBackground(new Color(121, 204, 224));
 		BuyBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(JOptionPane.showConfirmDialog(null,"Do you want to proceed?", "Select an Option...",JOptionPane.YES_NO_OPTION)==0){
-					ctrl.BuyandUpdate();
-					} else {
-						//does nothing
+				if(ctrl.Cart.size()==0) {
+					JOptionPane.showMessageDialog(new JFrame(), "Cart is empty","ERROR", JOptionPane.ERROR_MESSAGE);
+				}else {
+					if(JOptionPane.showConfirmDialog(null,"Do you want to proceed?", "Select an Option...",JOptionPane.YES_NO_OPTION)==0) {
+						ctrl.BuyandUpdate();
+					}else {
+						
 					}
 				}
-			});
+			}
+		});
+		BuyBtn.setBackground(new Color(121, 204, 224));
 		BuyBtn.setFont(new Font("Tahoma", Font.PLAIN, 70));
 		BuyBtn.setBounds(745, 534, 200, 123);
 		contentPane.add(BuyBtn);

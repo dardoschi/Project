@@ -90,7 +90,6 @@ public class LoginFrame extends JFrame {
 		contentPane.add(PasswordLabel);
 		PasswordLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		
-//		ImageIcon img = new ImageIcon("Login Frame.png");
 		JLabel backgroundLbl = new JLabel("");
 		backgroundLbl.setIcon(new ImageIcon(LoginFrame.class.getResource("/images/Login Frame.png")));
 		backgroundLbl.setForeground(new Color(0, 204, 255));
